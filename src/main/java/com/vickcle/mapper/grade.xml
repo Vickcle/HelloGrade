@@ -63,6 +63,9 @@
         <if test="course_name!=null and course_name!= 'empty'">
             and course_name = #{course_name}
         </if>
+        <if test="teacher_name!=null and teacher_name!= 'empty'">
+            and teacher_name = #{teacher_name}
+        </if>
         order by student_code;
     </select>
 

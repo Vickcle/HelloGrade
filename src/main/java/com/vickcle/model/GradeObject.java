@@ -6,6 +6,7 @@ public class GradeObject {
     private String student_name;
     private String teacher_code;
     private String teacher_name;
+    public  String class_name;
     private String course_code;
     private String course_name;
     private String course_type;
@@ -23,12 +24,14 @@ public class GradeObject {
     public GradeObject() {
     }
 
-    public GradeObject(int grade_id, String student_code, String student_name, String teacher_code, String teacher_name, String course_code, String course_name, String course_type, String course_property, double course_degree, int course_time, String lesson_duration, double grade_test, double grade_usual, double grade_interim, double grade_terminal, double grade_total, String grade_sign) {
+
+    public GradeObject(int grade_id, String student_code, String student_name, String teacher_code, String teacher_name, String class_name, String course_code, String course_name, String course_type, String course_property, double course_degree, int course_time, String lesson_duration, double grade_test, double grade_usual, double grade_interim, double grade_terminal, double grade_total, String grade_sign) {
         this.grade_id = grade_id;
         this.student_code = student_code;
         this.student_name = student_name;
         this.teacher_code = teacher_code;
         this.teacher_name = teacher_name;
+        this.class_name = class_name;
         this.course_code = course_code;
         this.course_name = course_name;
         this.course_type = course_type;
@@ -47,6 +50,11 @@ public class GradeObject {
     public GradeObject(String student_code, String student_name, String course_name) {
         this.student_code = student_code;
         this.student_name = student_name;
+        this.course_name = course_name;
+    }
+
+    public GradeObject(String teacher_name, String course_name) {
+        this.teacher_name = teacher_name;
         this.course_name = course_name;
     }
 
@@ -72,6 +80,14 @@ public class GradeObject {
 
     public void setStudent_name(String student_name) {
         this.student_name = student_name;
+    }
+
+    public String getClass_name() {
+        return class_name;
+    }
+
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
     }
 
     public String getTeacher_code() {

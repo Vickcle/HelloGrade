@@ -51,7 +51,7 @@
                     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                 </a>
                 <ul id="systemCourse" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                    <li><a href="#"><i class="glyphicon glyphicon-user"></i>查询课程成绩</a></li>
+                    <li><a href="${pageContext.request.contextPath}/student_query_grade_fields"><i class="glyphicon glyphicon-user"></i>查询课程成绩</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>课程成绩分析</a></li>
                 </ul>
             </li>

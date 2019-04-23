@@ -75,12 +75,10 @@
         var student_name = $("input[id='student_name']").val();
         var course_name =$("input[id='course_name']").val();
         $.ajax({
-            url:'/admin_query_grade_term',
+            url:'/teacher_query_grade_term',
             type:'POST',
             async:true,
             data:{
-                current_page:1,
-                page_size: 10,
                 student_code:student_code,
                 student_name:student_name,
                 course_name:course_name

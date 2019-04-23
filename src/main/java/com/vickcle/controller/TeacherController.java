@@ -1,22 +1,31 @@
 package com.vickcle.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.vickcle.bean.TeacherBean;
+import com.vickcle.model.GradeObject;
+import com.vickcle.model.Student;
 import com.vickcle.model.Teacher;
 import com.vickcle.service.ClassService;
+import com.vickcle.service.GradeService;
+import com.vickcle.service.StudentService;
 import com.vickcle.service.TeacherService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.vickcle.util.DealRow.changeToTeacher;
 
@@ -27,6 +36,10 @@ public class TeacherController {
     TeacherService teacherService;
     @Autowired
     ClassService classService;
+    @Autowired
+    GradeService gradeService;
+    @Autowired
+    StudentService studentService;
     //跳转界面
     @RequestMapping("/admin_query_teacher")
     public String toAdminQueryTeacher(Model model , HttpServletResponse response){
@@ -89,7 +102,23 @@ public class TeacherController {
         return "student/student_query_teacher_fields";
     }
 
-
+    @RequestMapping("/student_query_teacher_term")
+    @ResponseBody
+    public String toStudentQueryTeacherTerm(HttpSession session, @Param("teacher_name") String teacher_name,  @Param("course_name") String course_name){
+        Map<String,List<GradeObject>> msg = new HashMap<>();
+        teacher_name = ("".equals(teacher_name))?"empty":teacher_name;
+        course_name = ("".equals(course_name))?"empty":course_name;
+        GradeObject gradeObject = new GradeObject(teacher_name,course_name);
+        int student_id = (int)session.getAttribute("user_id");
+        Student student = studentService.findStudentById(student_id);
+        if (student!= null){
+            gradeObject.setStudent_code(student.getStudent_code());
+        }
+//        List<GradeObject> list = gradeService.selectAllGradeInfo();
+        List<GradeObject> list = gradeService.selectGradeInfoByTerms(gradeObject);
+        msg.put("data",list);
+        return JSON.toJSONString(msg);
+    }
 
 
     public  boolean dealTeacher(String person,int user_id){

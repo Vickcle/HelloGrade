@@ -96,31 +96,22 @@ public class GradeController {
     }
     //用于条件查询（实际条件查询和查总的可以放到一起）
     @RequestMapping("/teacher_query_grade_fields")
-    public String toTeacherQueryGrade_Field(Model model){
+    public String toTeacherQueryGrade_Fields(){
         //传入总页数
         return "teacher/teacher_query_grade_fields";
     }
 
     @RequestMapping("/teacher_query_grade_term")
     @ResponseBody
-    public String toTeacherQueryGradeTerm(HttpSession session,@Param("current_page")int current_page,@Param("page_size") int page_size,@Param("student_code") String student_code,@Param("student_name") String student_name,@Param("course_name") String course_name){
+    public String toTeacherQueryGradeTerm(HttpSession session,@Param("student_code") String student_code,@Param("student_name") String student_name,@Param("course_name") String course_name){
         Map<String,List<GradeObject>> msg = new HashMap<>();
-        current_page = (current_page==0)?1:current_page;
-        page_size = (page_size==0)?1:page_size;
         student_code = ("".equals(student_code))?"empty":student_code;
         student_name = ("".equals(student_name))?"empty":student_name;
         course_name = ("".equals(course_name))?"empty":course_name;
         GradeObject gradeObject = new GradeObject(student_code,student_name,course_name);
 //        List<GradeObject> list = gradeService.selectAllGradeInfo();
         List<GradeObject> list = gradeService.selectGradeInfoByTerms(gradeObject);
-        int page_num = list.size()/10+1;
-        session.setAttribute("page_num",page_num);
         //当size>当前页*记录数时
-        if(current_page*page_size<list.size()){
-            list = list.subList((current_page-1)*page_size,current_page*page_size);
-        }else{
-            list = list.subList((current_page-1)*page_size,list.size());
-        }
         System.out.println(list.toString());
         msg.put("data",list);
         return JSON.toJSONString(msg);
@@ -178,6 +169,27 @@ public class GradeController {
         gradeService.updateGradeById(grade);
         return "redirect:/admin_query_grade";
     }
+
+    @RequestMapping("/student_query_grade_fields")
+    public String toStudentQueryGradeField(){
+        //传入总页数
+        return "student/student_query_grade_fields";
+    }
+
+//    @RequestMapping("/student_query_grade_term")
+//    @ResponseBody
+//    public String toStudentQueryGradeTerm(@Param("teacher_name") String teacher_name,@Param("course_name") String course_name){
+//        Map<String,List<GradeObject>> msg = new HashMap<>();
+//        teacher_name = ("".equals(teacher_name))?"empty":teacher_name;
+//        course_name = ("".equals(course_name))?"empty":course_name;
+//        GradeObject gradeObject = new GradeObject(teacher_name,course_name);
+//
+////        List<GradeObject> list = gradeService.selectAllGradeInfo();
+//        List<GradeObject> list = gradeService.selectGradeInfoByTerms(gradeObject);
+//        msg.put("data",list);
+//        return JSON.toJSONString(msg);
+//    }
+
     //完成数据库删除操作
     @RequestMapping("/delete_grade_database")
     public String toDeleteGradeDB(int grade_id){

@@ -76,7 +76,7 @@
             data:{
                 current_page:1,
                 page_size: 10,
-                teacher_name:teacher_name,
+                lesson_duration:teacher_name,
                 course_name:course_name
             },
             timeout:5000,
@@ -95,9 +95,15 @@
     function pushTableInfo(datas) {
         var data = JSON.parse(datas);
         var tableColumns = [
-            {field: 'teacher_code', title: '教师工号', sortable: true},
+            {field: 'course_code', title: '课程编号', sortable: true},
+            {field: 'course_name', title: '课程名称',},
             {field: 'teacher_name', title: '教师姓名', },
-            {field: 'course_name', title: '课程名称'}
+            {field: 'lesson_duration', title: '学期',},
+            {field: 'grade_test', title: '实验成绩', sortable: true},
+            {field: 'grade_usual', title: '平时成绩', sortable: true},
+            {field: 'grade_interim', title: '期中成绩', sortable: true},
+            {field: 'grade_terminal', title: '期末成绩', sortable: true},
+            {field: 'grade_total', title: '总成绩', sortable: true},
         ];
         $('#tableL01').bootstrapTable('destroy');   //动态加载表格之前，先销毁表格
 
