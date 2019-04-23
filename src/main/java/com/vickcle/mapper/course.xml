@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vickcle.dao.CourseDao">
+    <select id="findAllCourse" resultType="Course">
+  		select * from hg_course;
+  	</select>
+    <select id="findCourseByName" resultType="Course">
+  		select * from hg_course where course_name = #{course_name};
+  	</select>
+
+    <select id="findCourseByCode" resultType="Course">
+  		select * from hg_course where course_code = #{course_code};
+  	</select>
+
+    <select id="findCourseById" resultType="Course">
+  		select * from hg_course where course_id = #{course_id};
+  	</select>
+
+    <insert id="insertCourse">
+        INSERT INTO hg_course (
+            course_id,
+            course_code,
+            course_name,
+            course_type,
+            course_property,
+            course_degree,
+            course_time,
+            before_id,
+            academy_id,
+            create_by,
+            creation_date,
+            last_update_by,
+            last_update_date
+        )
+        VALUES
+            (null,#{course_code},#{course_name},#{course_type},#{course_property},#{course_degree},#{course_time},#{before_id},#{academy_id},#{create_by},NOW(),null,null);
+    </insert>
+
+    <update id="updateCourseById">
+        update hg_course set
+         course_code = #{course_code},
+         course_name = #{course_name},
+         course_type = #{course_type},
+         course_property = #{course_property},
+         course_degree = #{course_degree},
+         course_time = #{course_time},
+         before_id = #{before_id},
+         academy_id = #{academy_id},
+         last_update_by = #{last_update_by},
+         last_update_date = NOW()
+         where course_id = #{course_id};
+    </update>
+
+    <delete id="deleteCourseById">
+        delete from hg_course where course_id = #{course_id};
+    </delete>
+</mapper>

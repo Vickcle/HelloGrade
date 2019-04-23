@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vickcle.dao.LessonDao">
+    <select id="findAllLesson" resultType="Lesson">
+  		select * from hg_lesson order by student_id;
+  	</select>
+
+   <select id="findLessonById" resultType="Lesson">
+  		select * from hg_lesson where lesson_id = #{lesson_id} order by student_id;
+  	</select>
+
+
+    <select id="findLessonInGrade" resultType="Lesson">
+  		select * from hg_lesson where course_id  = #{course_id} and teacher_id = #{teacher_id} and lesson_duration = #{lesson_duration};
+  	</select>
+
+
+    <insert id="insertLesson">
+        INSERT INTO hg_lesson (
+            lesson_id,
+            course_id,
+            teacher_id,
+            lesson_duration,
+            lesson_address,
+            create_by,
+            creation_date,
+            last_update_by,
+            last_update_date
+        )
+        VALUES
+            (null,#{course_id},#{teacher_id},#{lesson_duration},#{lesson_address},#{create_by},NOW(),null,null);
+    </insert>
+
+    <update id="updateLessonById">
+        update hg_lesson set
+         course_id = #{course_id},
+         teacher_id = #{teacher_id},
+         lesson_duration = #{lesson_duration},
+         lesson_property = #{lesson_property},
+         lesson_address = #{lesson_address},
+         last_update_by = #{last_update_by},
+         last_update_date = NOW()
+         where lesson_id = #{lesson_id};
+    </update>
+
+    <delete id="deleteLessonById">
+        delete from hg_lesson where lesson_id = #{lesson_id};
+    </delete>
+</mapper>

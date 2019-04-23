@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vickcle.dao.MajorDao">
+    <select id="findAllMajor" resultType="Major">
+  		select * from hg_major;
+  	</select>
+    <select id="findMajorByName" resultType="Major">
+  		select * from hg_major where major_name = #{major_name};
+  	</select>
+
+    <select id="findMajorById" resultType="Major">
+  		select * from hg_major where major_id = #{major_id};
+  	</select>
+
+    <insert id="insertMajor">
+        INSERT INTO hg_major (
+            major_id,
+            major_code,
+            major_name,
+            major_type,
+            academy_id,
+            create_by,
+            creation_date,
+            last_update_by,
+            last_update_date
+        )
+        VALUES
+            (null,#{major_code},#{major_name},#{major_type},#{academy_id},#{create_by},NOW(),null,null);
+    </insert>
+
+    <update id="updateMajorById">
+        update hg_major set
+         major_code = #{major_code},
+         major_name = #{major_name},
+         major_type = #{major_type},
+         academy_id = #{academy_id},
+         last_update_by = #{last_update_by},
+         last_update_date = NOW()
+         where major_id = #{major_id};
+    </update>
+
+    <delete id="deleteMajorById">
+        delete from hg_major where major_id = #{major_id};
+    </delete>
+</mapper>

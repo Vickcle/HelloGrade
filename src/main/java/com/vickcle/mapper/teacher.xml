@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vickcle.dao.TeacherDao">
+    <select id="findAllTeacher" resultType="Teacher">
+  		select * from hg_teacher;
+  	</select>
+    <select id="findTeacherByName" resultType="Teacher">
+  		select * from hg_teacher where teacher_name = #{teacher_name};
+  	</select>
+
+    <select id="findTeacherByCode" resultType="Teacher">
+  		select * from hg_teacher where teacher_code = #{teacher_code};
+  	</select>
+
+    <select id="findTeacherById" resultType="Teacher">
+  		select * from hg_teacher where teacher_id = #{teacher_id};
+  	</select>
+
+    <insert id="insertTeacher">
+        INSERT INTO hg_teacher (
+            teacher_id,
+            teacher_code,
+            teacher_name,
+            teacher_pwd,
+            teacher_tel,
+            teacher_email,
+            teacher_honor,
+            academy_id,
+            create_by,
+            creation_date,
+            last_update_by,
+            last_update_date
+        )
+        VALUES
+            (null,#{teacher_code},#{teacher_name},#{teacher_pwd},#{teacher_tel},#{teacher_email},#{teacher_honor},#{academy_id},#{create_by},NOW(),null,null);
+    </insert>
+
+    <update id="updateTeacherById">
+        update hg_teacher set
+         teacher_code = #{teacher_code},
+         teacher_name = #{teacher_name},
+         teacher_tel = #{teacher_tel},
+         teacher_email = #{teacher_email},
+         teacher_honor = #{teacher_honor},
+         academy_id = #{academy_id},
+         last_update_by = #{last_update_by},
+         last_update_date = NOW()
+         where teacher_id = #{teacher_id};
+    </update>
+
+    <delete id="deleteTeacherById">
+        delete from hg_teacher where teacher_id = #{teacher_id};
+    </delete>
+</mapper>
