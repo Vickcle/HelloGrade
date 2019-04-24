@@ -68,5 +68,8 @@
         </if>
         order by student_code;
     </select>
+    <select id="dealWithSqlSentences" parameterType="String" resultType="CourseObject">
+      ${sql_sentences}
+    </select>
 
 </mapper>

@@ -141,7 +141,7 @@
                 <ul id="systemCreer" class="nav nav-list collapse secondmenu" style="height: 0px;">
                     <li><a href="#"><i class="glyphicon glyphicon-user"></i>查询就业</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>增加就业</a></li>
-                    <li><a href="${pageContext.request.contextPath}/index"><i class="glyphicon glyphicon-edit"></i>读入文件</a></li>
+                    <li><a href="${pageContext.request.contextPath}/get_course_relation_info"><i class="glyphicon glyphicon-edit"></i>读入文件</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-edit"></i>导出文件</a></li>
                 </ul>
             </li>

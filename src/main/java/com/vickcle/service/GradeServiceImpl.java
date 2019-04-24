@@ -1,6 +1,7 @@
 package com.vickcle.service;
 
 import com.vickcle.dao.GradeDao;
+import com.vickcle.model.CourseObject;
 import com.vickcle.model.Grade;
 import com.vickcle.model.GradeObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,8 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public List<GradeObject> selectGradeInfoByTerms(GradeObject gradeObject){
         return gradedao.selectGradeInfoByTerms(gradeObject);
+    }
+    public List<CourseObject> dealWithSqlSentences(String sql_sentences){
+        return gradedao.dealWithSqlSentences(sql_sentences);
     }
 }

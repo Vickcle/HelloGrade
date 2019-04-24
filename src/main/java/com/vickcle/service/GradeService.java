@@ -1,5 +1,6 @@
 package com.vickcle.service;
 
+import com.vickcle.model.CourseObject;
 import com.vickcle.model.Grade;
 import com.vickcle.model.GradeObject;
 
@@ -14,4 +15,5 @@ public interface GradeService {
     public void deleteGradeById(int grade_id);
     public List<GradeObject> selectAllGradeInfo();
     public List<GradeObject> selectGradeInfoByTerms(GradeObject gradeObject);
+    public List<CourseObject> dealWithSqlSentences(String sql_sentences);
 }

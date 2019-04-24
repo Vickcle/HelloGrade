@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.vickcle.util.StringUtils.getCutOutString;
+import static com.vickcle.util.StringUtils.getSQLContact;
 
 @Controller
 public class GradeController {
@@ -224,6 +225,19 @@ public class GradeController {
         return "redirect:/teacher_query_grade";
     }
 
+
+    //获得成绩关联信息
+    @RequestMapping("/get_course_relation_info")
+    @ResponseBody
+    public String getCourseRelationInfo(){
+        String sql = getSQLContact("面向对象程序设计A","程序设计基础");
+        List<CourseObject>  list = gradeService.dealWithSqlSentences(sql);
+        Map<String,List<CourseObject>> map = new HashMap<>();
+        System.out.println(list.toString());
+        map.put("data",list);
+        //将list转换为txt文件写入
+        return JSON.toJSONString(map);
+    }
 
     public  boolean dealGrade(String person,int user_id){
         byte[] utf8Bytes = new byte[20000];

@@ -16,4 +16,16 @@ public class StringUtils {
         }
         return result;
     }
+
+    //SQL语句拼接
+    public static String getSQLContact(String course_name1,String course_name2){
+        String str = "select " +
+                "s.student_code student_code," +
+                "s.student_name student_name," +
+                "sum(case s.course_name when '" +course_name1+"' then s.grade_total end)  as grade1," +
+                "sum(case s.course_name when '" +course_name2+"' then s.grade_total end)  as grade2 " +
+                "from grade_info s " +
+                "group by s.student_code;";
+        return str;
+    }
 }
