@@ -53,6 +53,14 @@ public class GradeObject {
         this.course_name = course_name;
     }
 
+    //学生学号，学生姓名，课程名,班级名
+    public GradeObject(String student_code, String student_name, String class_name, String course_name) {
+        this.student_code = student_code;
+        this.student_name = student_name;
+        this.class_name = class_name;
+        this.course_name = course_name;
+    }
+
     public GradeObject(String teacher_name, String course_name) {
         this.teacher_name = teacher_name;
         this.course_name = course_name;

@@ -17,6 +17,9 @@
     <select id="findCourseById" resultType="Course">
   		select * from hg_course where course_id = #{course_id};
   	</select>
+    <select id="findCourseByBeforeId" resultType="Course">
+  		select * from hg_course where before_id = #{before_id};
+  	</select>
 
     <insert id="insertCourse">
         INSERT INTO hg_course (

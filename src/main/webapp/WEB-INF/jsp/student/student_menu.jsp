@@ -63,7 +63,7 @@
                     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                 </a>
                 <ul id="systemGrade" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                    <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>导出个人成绩单</a></li>
+                    <li><a href="${pageContext.request.contextPath}/student_export_grade"><i class="glyphicon glyphicon-th-list"></i>导出个人成绩单</a></li>
                 </ul>
             </li>
 

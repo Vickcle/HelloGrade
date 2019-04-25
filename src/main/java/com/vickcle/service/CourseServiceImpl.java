@@ -25,12 +25,16 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> findCourseByName(String course_name){
+    public Course findCourseByName(String course_name){
         return courseDao.findCourseByName(course_name);
     }
     @Override
     public Course findCourseById(int course_id){
         return courseDao.findCourseById(course_id);
+    }
+    @Override
+    public  Course findCourseByBeforeId(int course_id){
+        return courseDao.findCourseByBeforeId(course_id);
     }
     @Override
     public void updateCourseById(Course course){

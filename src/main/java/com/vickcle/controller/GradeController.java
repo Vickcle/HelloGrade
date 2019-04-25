@@ -21,13 +21,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.vickcle.util.FileUtil.changeListToTxt;
 import static com.vickcle.util.StringUtils.getCutOutString;
 import static com.vickcle.util.StringUtils.getSQLContact;
+import static com.vickcle.util.WekaPredict.useWekaPredict;
 
 @Controller
 public class GradeController {
@@ -212,6 +215,12 @@ public class GradeController {
         return "redirect:/admin_query_grade";
     }
 
+    //学生导出成绩
+    @RequestMapping("/student_export_grade")
+    public String toStudentExportGrade(){
+        return "student/student_export_grade";
+    }
+
     //转到excel导入界面
     @RequestMapping("/teacher_import_grade")
     public String toTeacherImportGrade(){
@@ -227,13 +236,37 @@ public class GradeController {
 
 
     //获得成绩关联信息
+    //这里要做什么，传入一门已经得到成绩的课程，去找他的后续课程，一旦找到，那么去找已经产生成绩的组训练模型，若无，则返回String无数据
+    //若有，则返回预测的成绩数据
     @RequestMapping("/get_course_relation_info")
     @ResponseBody
-    public String getCourseRelationInfo(){
-        String sql = getSQLContact("面向对象程序设计A","程序设计基础");
-        List<CourseObject>  list = gradeService.dealWithSqlSentences(sql);
-        Map<String,List<CourseObject>> map = new HashMap<>();
-        System.out.println(list.toString());
+    public String getCourseRelationInfo(@Param("grade_id") int grade_id){
+        GradeObject gradeObject = gradeService.selectGradeInfoByGradeId(grade_id);
+        if(gradeObject!=null){
+            Course course1 = courseService.findCourseByName(gradeObject.getCourse_name());
+            if (course1!=null){
+                Course course2 = courseService.findCourseByBeforeId(course1.getCourse_id());
+                if(course2!=null){
+                    String sql = getSQLContact(course1.getCourse_name(),course2.getCourse_name());
+                    System.out.println(sql);
+                    List<CourseObject>  list = gradeService.dealWithSqlSentences(sql);
+                    Map<String,String> map = new HashMap<>();
+                    String str = "1";
+                    try {
+                        changeListToTxt(list);
+                        str = useWekaPredict(gradeObject.getGrade_total()).get("predict");
+                        map.put("course_name",course2.getCourse_name());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    map.put("data",str);
+                    //将list转换为txt文件写入
+                    return JSON.toJSONString(map);
+                }
+            }
+        }
+        Map<String,String> map = new HashMap<>();
+        String list = "0";
         map.put("data",list);
         //将list转换为txt文件写入
         return JSON.toJSONString(map);

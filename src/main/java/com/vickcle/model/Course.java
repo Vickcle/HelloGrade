@@ -130,4 +130,23 @@ public class Course {
     public void setLast_update_date(String last_update_date) {
         this.last_update_date = last_update_date;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "course_id=" + course_id +
+                ", course_code='" + course_code + '\'' +
+                ", course_name='" + course_name + '\'' +
+                ", course_type='" + course_type + '\'' +
+                ", course_property='" + course_property + '\'' +
+                ", course_degree='" + course_degree + '\'' +
+                ", course_time=" + course_time +
+                ", before_id=" + before_id +
+                ", academy_id=" + academy_id +
+                ", create_by=" + create_by +
+                ", creation_date='" + creation_date + '\'' +
+                ", last_update_by=" + last_update_by +
+                ", last_update_date='" + last_update_date + '\'' +
+                '}';
+    }
 }

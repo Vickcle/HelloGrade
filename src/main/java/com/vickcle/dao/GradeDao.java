@@ -15,5 +15,6 @@ public interface GradeDao {
     public void deleteGradeById(int grade_id);
     public List<GradeObject> selectAllGradeInfo();
     public List<GradeObject> selectGradeInfoByTerms(GradeObject gradeObject);
+    public GradeObject selectGradeInfoByGradeId(@Param("grade_id") int grade_id);
     public List<CourseObject> dealWithSqlSentences(@Param("sql_sentences") String sql_sentences);
 }

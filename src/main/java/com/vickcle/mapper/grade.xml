@@ -68,6 +68,9 @@
         </if>
         order by student_code;
     </select>
+    <select id="selectGradeInfoByGradeId" resultType="GradeObject">
+        select * from grade_info where grade_id = #{grade_id};
+    </select>
     <select id="dealWithSqlSentences" parameterType="String" resultType="CourseObject">
       ${sql_sentences}
     </select>

@@ -4,6 +4,7 @@ import com.vickcle.dao.GradeDao;
 import com.vickcle.model.CourseObject;
 import com.vickcle.model.Grade;
 import com.vickcle.model.GradeObject;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,10 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public List<GradeObject> selectGradeInfoByTerms(GradeObject gradeObject){
         return gradedao.selectGradeInfoByTerms(gradeObject);
+    }
+    @Override
+    public  GradeObject selectGradeInfoByGradeId(@Param("grade_id") int grade_id){
+        return gradedao.selectGradeInfoByGradeId(grade_id);
     }
     public List<CourseObject> dealWithSqlSentences(String sql_sentences){
         return gradedao.dealWithSqlSentences(sql_sentences);

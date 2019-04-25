@@ -103,6 +103,13 @@
     function pushTableInfo(datas) {
         var data = JSON.parse(datas);
         var tableColumns = [
+            {
+                title: '行号',
+                align: 'center',
+                valign: 'bottom',
+                formatter: function(value, row, index) {
+                    return index + 1;
+                }},
             {field: 'student_code', title: '学号', sortable: true},
             {field: 'student_name', title: '姓名', },
             {field: 'course_name', title: '课程名称'},
@@ -150,10 +157,11 @@
             // exportButton: $('#btn_export'),     //为按钮btn_export  绑定导出事件  自定义导出按钮(可以不用)
             exportOptions:{
                 //ignoreColumn: [0,0],            //忽略某一列的索引
-                fileName: '数据导出',              //文件名称设置
-                worksheetName: 'Sheet1',          //表格工作区名称
-                tableName: '商品数据表',
-                excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],
+                ignoreColumn: [0,1],  //忽略某一列的索引
+                fileName: '成绩信息报表',  //文件名称设置
+                worksheetName: 'sheet1',  //表格工作区名称
+                tableName: '成绩信息报表',
+                excelstyles: ['background-color', 'color', 'font-size', 'font-weight']
                 //onMsoNumberFormat: DoOnMsoNumberFormat,
             }
         });

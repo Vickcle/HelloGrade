@@ -104,6 +104,14 @@
             {field: 'grade_interim', title: '期中成绩', sortable: true},
             {field: 'grade_terminal', title: '期末成绩', sortable: true},
             {field: 'grade_total', title: '总成绩', sortable: true},
+            {
+                field: 'grade_id',
+                title: '操作',
+                width: 120,
+                align: 'center',
+                valign: 'middle',
+                formatter: actionFormatter,
+            },
         ];
         $('#tableL01').bootstrapTable('destroy');   //动态加载表格之前，先销毁表格
 
@@ -133,6 +141,38 @@
         getGradeInfo();
     });
 
+    function actionFormatter(value, row, index) {
+        var course_name = row["course_name"];
+        var grade_total = row["grade_total"];
+        var id = value;
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id +"', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
+        return result;
+    }
+
+    //转到查看界面
+    function EditViewById(id){
+        $.ajax({
+            url:'/get_course_relation_info',
+            type:'POST',
+            async:true,
+            data:{
+                current_page:1,
+                page_size: 10,
+                grade_id:id,
+            },
+            timeout:5000,
+            dataType:'json',
+            success:function(data){
+                alert(data["data"]);
+            },
+            error:function(){
+                alert("error");
+            }
+        });
+    }
+    //进行删除操作
+    //17184305914
 
     //转到查看界面
 
