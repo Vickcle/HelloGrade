@@ -14,10 +14,9 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/title.ico" type="image/x-icon" />
 <body>
 <jsp:include page="admin_head.jsp"/>
-<div class="col-md-2">
-    <jsp:include page="admin_menu.jsp"/>
+<<div class="col-md-2 "><jsp:include page="admin_menu.jsp"/>
 </div>
-<div class="col-md-9" style="float: left;">
+<div class="col-md-10" style="float: left;">
     <div class="col-md-8 col-md-offset-1">
         <input type="file" id="excel-file" multiple="multiple">
         <input type="button" class="bg-primary col-md-3" id="fileImport" value="导入">

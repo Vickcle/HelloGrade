@@ -9,7 +9,7 @@
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:useBean id="teacher" class="com.vickcle.model.Teacher" scope="request" />
+<jsp:useBean id="major" class="com.vickcle.model.Major" scope="request" />
 <html>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\reset.css">
@@ -21,23 +21,21 @@
 </div>
 <div class="col-md-10" style="float: left;">
     <div class="container col-md-10">
-        填写学校信息：
+        修改企业信息：
         <br>
         <table class="show_info" border="1">
-            <sf:form method="post" modelAttribute="teacher"
-                     action="${pageContext.request.contextPath }/update_teacher_database">
-                <sf:input path="teacher_id" type="hidden"/>
-                <div class="div-jan">教师工号:<sf:input path="teacher_code"/></div>
-                <sf:errors path="teacher_code" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师姓名:<sf:input path="teacher_name"/></div>
-                <sf:errors path="teacher_name" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师电话:<sf:input path="teacher_tel"/></div>
-                <sf:errors path="teacher_tel" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师邮箱:<sf:input path="teacher_email"/></div>
-                <sf:errors path="teacher_email" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师职称:<sf:input path="teacher_honor"/></div>
-                <sf:errors path="teacher_honor" cssClass="error"></sf:errors><br>
-                <input type="submit" value="修改" class="update btn btn-info">
+            <sf:form method="post" modelAttribute="company"
+                     action="${pageContext.request.contextPath }/update_company_database">
+                <sf:input path="company_id" type="hidden"/>
+                <div class="div-jan">公司编号:<sf:input path="company_code"/></div>
+                <sf:errors path="company_code" cssClass="error"></sf:errors><br>
+                <div class="div-jan">公司名称:<sf:input path="company_name"/></div>
+                <sf:errors path="company_name" cssClass="error"></sf:errors><br>
+                <div class="div-jan">公司类型:<sf:input path="company_type"/></div>
+                <sf:errors path="company_type" cssClass="error"></sf:errors><br>
+                <div class="div-jan">公司地址:<sf:input path="company_address"/></div>
+                <sf:errors path="company_address" cssClass="error"></sf:errors><br>
+                <input type="submit" vlaue="修改" class="update btn btn-info">
             </sf:form>
         </table>
     </div>

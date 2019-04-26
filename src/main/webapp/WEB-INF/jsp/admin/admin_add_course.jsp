@@ -15,9 +15,9 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/title.ico" type="image/x-icon" />
 <body>
 <jsp:include page="admin_head.jsp"/>
-<div class="col-md-2 col-md-offset-1"><jsp:include page="admin_menu.jsp"/>
+<div class="col-md-2 "><jsp:include page="admin_menu.jsp"/>
 </div>
-<div class="col-md-8 col-md-offset-1" style="float: left;">
+<div class="col-md-10" style="float: left;">
     <div class="container col-md-10">
         填写课程信息：
         <br>

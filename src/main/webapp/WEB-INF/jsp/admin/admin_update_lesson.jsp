@@ -17,9 +17,9 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}\img\title.ico" type="image/x-icon" />
 <body>
 <jsp:include page="admin_head.jsp"/>
-<div class="col-md-2 col-md-offset-1"><jsp:include page="admin_menu.jsp"/>
+<div class="col-md-2 "><jsp:include page="admin_menu.jsp"/>
 </div>
-<div class="col-md-8 col-md-offset-1" style="float: left;">
+<div class="col-md-10" style="float: left;">
     <div class="container col-md-10">
         填写学校信息：
         <br>
@@ -27,16 +27,10 @@
             <sf:form method="post" modelAttribute="lesson"
                      action="${pageContext.request.contextPath }/update_lesson_database">
                 <sf:input path="lesson_id" type="hidden"/>
-                <div class="div-jan">教师工号:<sf:input path="lesson_code"/></div>
-                <sf:errors path="lesson_code" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师姓名:<sf:input path="lesson_name"/></div>
-                <sf:errors path="lesson_name" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师电话:<sf:input path="lesson_tel"/></div>
-                <sf:errors path="lesson_tel" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师邮箱:<sf:input path="lesson_email"/></div>
-                <sf:errors path="lesson_email" cssClass="error"></sf:errors><br>
-                <div class="div-jan">教师职称:<sf:input path="lesson_honor"/></div>
-                <sf:errors path="lesson_honor" cssClass="error"></sf:errors><br>
+                <div class="div-jan">开课学期:<sf:input path="lesson_duration"/></div>
+                <sf:errors path="lesson_duration" cssClass="error"></sf:errors><br>
+                <div class="div-jan">上课地点:<sf:input path="lesson_address"/></div>
+                <sf:errors path="lesson_address" cssClass="error"></sf:errors><br>
                 <input type="submit" value="修改" class="update btn btn-info">
             </sf:form>
         </table>

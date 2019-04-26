@@ -9,6 +9,20 @@
 <html>
 <head>
 </head>
+<style type="text/css">
+    #confirmOut{
+        position:absolute;
+        z-index: 500;
+        top:-40px;
+        left:250px;
+        border: 1px solid #2B2E33;
+        border-radius: 5px;
+        background-color: #f0f9fe;
+        width: 200px;
+        height: 40px;
+        padding-left: 12px;
+    }
+</style>
 <body>
 <div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
@@ -19,7 +33,7 @@
                 out.print("欢迎您：");
                 out.print("<label style='width: 60px;margin-top: 18px; margin-left: 10px; font-size: 14px;'><a href='#'>"+user+"</a></label>");
             %>
-            <a href="#" id="jojo">注销</a>
+            <a href="${pageContext.request.contextPath}\" id="jojo">注销</a>
         </div>
     </div>
 </div>

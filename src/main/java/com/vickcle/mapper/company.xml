@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vickcle.dao.CompanyDao">
+    <select id="findAllCompany" resultType="Company" parameterType="com.vickcle.model.Company">
+  		select * from hg_company where 1 = 1
+        <if test="company_name!=null and company_name!= 'empty'">
+            and company_name = #{company_name}
+        </if>
+        <if test="company_type!=null and company_type!= 'empty'">
+            and company_type = #{company_type}
+        </if>
+        ;
+  	</select>
+    <select id="findCompanyByName" resultType="Company">
+  		select * from hg_company where company_name = #{company_name};
+  	</select>
+
+    <select id="findCompanyByCode" resultType="Company">
+  		select * from hg_company where company_code = #{company_code};
+  	</select>
+
+    <select id="findCompanyById" resultType="Company">
+  		select * from hg_company where company_id = #{company_id};
+  	</select>
+
+    <insert id="insertCompany">
+        INSERT INTO hg_company (
+            company_id,
+            company_code,
+            company_name,
+            company_type,
+            company_address,
+            create_by,
+            creation_date,
+            last_update_by,
+            last_update_date
+        )
+        VALUES
+            (null,#{company_code},#{company_name},#{company_type},#{company_address},#{create_by},NOW(),null,null);
+    </insert>
+
+    <update id="updateCompanyById">
+        update hg_company set
+         company_code = #{company_code},
+         company_name = #{company_name},
+         company_type = #{company_type},
+         company_address = #{company_address},
+         last_update_by = #{last_update_by},
+         last_update_date = NOW()
+         where company_id = #{company_id};
+    </update>
+
+    <delete id="deleteCompanyById">
+        delete from hg_company where company_id = #{company_id};
+    </delete>
+</mapper>

@@ -17,7 +17,7 @@
     <div class="row ">
         <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
             <li class="active">
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/">
                     <i class="glyphicon glyphicon-th-large"></i>
                     首页
                 </a>

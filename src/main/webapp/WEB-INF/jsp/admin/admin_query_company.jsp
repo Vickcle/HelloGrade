@@ -12,7 +12,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ page isELIgnored="false"%>
-<jsp:useBean id="gradeObject" class="com.vickcle.model.GradeObject" scope="request" />
+<jsp:useBean id="company" class="com.vickcle.model.Company" scope="request" />
 <html>
 <meta charset="utf-8">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/title.ico" type="image/x-icon" />
@@ -31,19 +31,15 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">学生学号：</label>
+                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">公司名称：</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="student_code"/>
+                        <input type="text" class="form-control" name="Name" id="company_name"/>
                     </div>
-                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">学生姓名：</label>
+                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">公司类型：</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="student_name"/>
+                        <input type="text" class="form-control" name="Name" id="company_type"/>
                     </div>
-                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">课程名称：</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="course_name"/>
-                    </div>
-                    <div class="col-sm-1 col-sm-offset-9">
+                    <div class="col-sm-1 col-sm-offset-8">
                         <button class="btn btn-primary" style="width: 150px;margin-top: 10px;margin-left:89px;" id="search_btn">查询</button>
                     </div>
                 </div>
@@ -75,23 +71,21 @@
     });
     //ajax请求数据：
     function getGradeInfo(){
-        var student_code =  $("input[id='student_code']").val();
-        var student_name = $("input[id='student_name']").val();
-        var course_name =$("input[id='course_name']").val();
+        var company_name =  $("input[id='company_name']").val();
+        var company_type = $("input[id='company_type']").val();
         $.ajax({
-            url:'/admin_query_grade_term',
+            url:'/admin_query_company_term',
             type:'POST',
             async:true,
             data:{
-                student_code:student_code,
-                student_name:student_name,
-                course_name:course_name
+                company_name:company_name,
+                company_type:company_type
             },
             timeout:5000,
             dataType:'json',
             success:function(data){
-               var gradeObjects = data["data"];
-                var str = JSON.stringify(gradeObjects);
+               var company = data["data"];
+                var str = JSON.stringify(company);
                 pushTableInfo(str);
             },
             error:function(){
@@ -110,16 +104,12 @@
                 formatter: function(value, row, index) {
                     return index + 1;
                 }},
-            {field: 'student_code', title: '学号', sortable: true},
-            {field: 'student_name', title: '姓名', },
-            {field: 'course_name', title: '课程名称'},
-            {field: 'grade_test', title: '实验成绩', sortable: true},
-            {field: 'grade_usual', title: '平时成绩', sortable: true},
-            {field: 'grade_interim', title: '期中成绩', sortable: true},
-            {field: 'grade_terminal', title: '期末成绩', sortable: true},
-            {field: 'grade_total', title: '总成绩', sortable: true},
+            {field: 'company_code', title: '公司编号', sortable: true},
+            {field: 'company_name', title: '公司名称', },
+            {field: 'company_type', title: '公司类型', },
+            {field: 'company_address', title: '公司地址',},
             {
-                field: 'grade_id',
+                field: 'company_id',
                 title: '操作',
                 width: 120,
                 align: 'center',
@@ -133,7 +123,7 @@
             columns: tableColumns,  //表头
             data:data, //通过ajax返回的数据
             width:300,
-            height:400,
+            height:350,
             dataType: "json",
             method: 'get',
             pageSize: 5,
@@ -157,10 +147,10 @@
             // exportButton: $('#btn_export'),     //为按钮btn_export  绑定导出事件  自定义导出按钮(可以不用)
             exportOptions:{
                 //ignoreColumn: [0,0],            //忽略某一列的索引
-                ignoreColumn: [9],  //忽略某一列的索引
-                fileName: '成绩信息报表',  //文件名称设置
+                ignoreColumn: [5],  //忽略某一列的索引
+                fileName: '报表',  //文件名称设置
                 worksheetName: 'sheet1',  //表格工作区名称
-                tableName: '成绩信息报表',
+                tableName: '报表',
                 excelstyles: ['background-color', 'color', 'font-size', 'font-weight']
                 //onMsoNumberFormat: DoOnMsoNumberFormat,
             }
@@ -181,17 +171,17 @@
     }
 
     //转到查看界面
-    function EditViewById(id){
-        console.log("edit"+id);
+    function EditViewById(company_id){
+        window.location.href = "/admin_update_company?company_id="+company_id;
     }
     //进行删除操作
-    function DeleteById(id) {
+    function DeleteById(company_id) {
         var txt=  "确认删除此条记录？";
         var option = {
             title: "提示：",
             btn: parseInt("0011",2),
             onOk: function(){
-                console.log("delete"+id);
+                window.location.href = "/delete_company_database?company_id="+company_id;
             }
         }
         window.wxc.xcConfirm(txt, "custom", option);

@@ -31,8 +31,6 @@
                 <ul id="systemSchool" class="nav nav-list collapse secondmenu" style="height: 0px;">
                     <li><a href="${pageContext.request.contextPath}/admin_query_school"><i class="glyphicon glyphicon-user"></i>查询学校</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_school"><i class="glyphicon glyphicon-th-list"></i>增加学校</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>学校读入</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>学校导出</a></li>
                 </ul>
             </li>
             <li>
@@ -44,8 +42,6 @@
                 <ul id="systemAcademy" class="nav nav-list collapse secondmenu" style="height: 0px;">
                     <li><a href="${pageContext.request.contextPath}/admin_query_academy"><i class="glyphicon glyphicon-user"></i>查询学院</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_academy"><i class="glyphicon glyphicon-th-list"></i>增加学院</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>学院读入</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>学院导出</a></li>
                 </ul>
             </li>
 
@@ -58,8 +54,6 @@
                 <ul id="systemMajor" class="nav nav-list collapse secondmenu" style="height: 0px;">
                     <li><a href="${pageContext.request.contextPath}/admin_query_major"><i class="glyphicon glyphicon-user"></i>查询专业</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_major"><i class="glyphicon glyphicon-th-list"></i>增加专业</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>专业读入</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>专业导出</a></li>
                 </ul>
             </li>
 
@@ -72,8 +66,6 @@
                 <ul id="systemClass" class="nav nav-list collapse secondmenu" style="height: 0px;">
                     <li><a href="${pageContext.request.contextPath}/admin_query_class"><i class="glyphicon glyphicon-user"></i>查询班级</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_class"><i class="glyphicon glyphicon-th-list"></i>增加班级</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>班级读入</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-edit"></i>班级导出</a></li>
                 </ul>
             </li>
 
@@ -87,7 +79,6 @@
                     <li><a href="${pageContext.request.contextPath}/admin_query_student"><i class="glyphicon glyphicon-user"></i>查询学生</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_student"><i class="glyphicon glyphicon-th-list"></i>增加学生</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_import_student"><i class="glyphicon glyphicon-edit"></i>学生读入</a></li>
-                    <li><a href="${pageContext.request.contextPath}/"><i class="glyphicon glyphicon-edit"></i>学生导出</a></li>
                 </ul>
             </li>
             <li>
@@ -114,7 +105,6 @@
                     <li><a href="${pageContext.request.contextPath}/admin_query_course"><i class="glyphicon glyphicon-user"></i>查询课程</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_course"><i class="glyphicon glyphicon-th-list"></i>增加课程</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_import_course"><i class="glyphicon glyphicon-edit"></i>读入文件</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-edit"></i>导出文件</a></li>
                 </ul>
             </li>
 
@@ -133,6 +123,18 @@
             </li>
 
             <li>
+                <a href="#systemCompany" class="nav-header collapsed" data-toggle="collapse">
+                    <i class="glyphicon glyphicon-fire"></i>
+                    就业单位管理
+                    <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul id="systemCompany" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                    <li><a href="${pageContext.request.contextPath}/admin_query_company"><i class="glyphicon glyphicon-user"></i>查询就业单位</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin_add_company"><i class="glyphicon glyphicon-th-list"></i>增加就业单位</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <a href="#systemCreer" class="nav-header collapsed" data-toggle="collapse">
                     <i class="glyphicon glyphicon-fire"></i>
                     就业管理
@@ -141,8 +143,6 @@
                 <ul id="systemCreer" class="nav nav-list collapse secondmenu" style="height: 0px;">
                     <li><a href="#"><i class="glyphicon glyphicon-user"></i>查询就业</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>增加就业</a></li>
-                    <li><a href="${pageContext.request.contextPath}/get_course_relation_info"><i class="glyphicon glyphicon-edit"></i>读入文件</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-edit"></i>导出文件</a></li>
                 </ul>
             </li>
 

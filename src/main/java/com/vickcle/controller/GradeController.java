@@ -266,8 +266,8 @@ public class GradeController {
             }
         }
         Map<String,String> map = new HashMap<>();
-        String list = "0";
-        map.put("data",list);
+        map.put("data","无后续课程");
+        map.put("course_name","暂无后续课程");
         //将list转换为txt文件写入
         return JSON.toJSONString(map);
     }

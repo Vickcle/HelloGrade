@@ -18,6 +18,28 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\bootstrap-table.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\reset.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\xcConfirm.css">
+<style type="text/css">
+    #myModal{
+        position:absolute;
+        z-index: 200;
+        top: 50px;
+        left:250px;
+        border: 1px solid #2B2E33;
+        border-radius: 5px;
+        background-color: #f0f9fe;
+        width: 400px;
+        height: 280px;
+        padding-left: 12px;
+    }
+    #myModal h2{
+        margin-left: 30px;
+    }
+    #close_myModal{
+        margin-left: 30px;
+        margin-top: 40px;
+        width:150px;
+    }
+</style>
 <body>
 <jsp:include page="student_head.jsp"/>
 <div class="col-md-2"><jsp:include page="student_menu.jsp"/>
@@ -44,8 +66,13 @@
                 </div>
             </div>
             <table class="table" id="tableL01"></table>
-            <div id="myConfirm"></div>
-
+            <div class="div"  id="myModal">
+                <span>下一门课程名为：</span>
+                <h2><label class="label label-success" id="next_name"></label></h2>
+                <span>预计得分为：</span>
+                <h2><label class="label label-info" id="next_grade"></label></h2>
+                <input class="btn btn-info" id="close_myModal" type="button" value="关闭"/>
+            </div>
         </div>
     </div>
 </div>
@@ -59,11 +86,14 @@
     //全局变量：已有数据：
     //先清空数据
     //准备表头数据：
-
+    $("#close_myModal").click(function () {
+        $("#myModal").hide();
+    });
 
     //预加载事件
     $(function(){
         getGradeInfo();
+        $("#myModal").hide();
     });
     //ajax请求数据：
     function getGradeInfo(){
@@ -106,7 +136,7 @@
             {field: 'grade_total', title: '总成绩', sortable: true},
             {
                 field: 'grade_id',
-                title: '操作',
+                title: '后续成绩预测',
                 width: 120,
                 align: 'center',
                 valign: 'middle',
@@ -164,7 +194,9 @@
             timeout:5000,
             dataType:'json',
             success:function(data){
-                alert(data["data"]);
+                $("#next_name").html(data["course_name"]);
+                $("#next_grade").html(data["data"]);
+                $("#myModal").show();
             },
             error:function(){
                 alert("error");
@@ -173,7 +205,7 @@
     }
     //进行删除操作
     //17184305914
-
+    $("")
     //转到查看界面
 
 </script>
