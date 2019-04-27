@@ -19,6 +19,11 @@ public class Student {
     public Student() {
     }
 
+    public Student(String student_code, String student_name) {
+        this.student_code = student_code;
+        this.student_name = student_name;
+    }
+
     public Student(int student_id, String student_code, String student_name, String student_pwd, String student_tel, String student_email, String student_address, int class_id, int create_by, Date creation_date, int last_update_by, Date last_update_date) {
         this.student_id = student_id;
         this.student_code = student_code;

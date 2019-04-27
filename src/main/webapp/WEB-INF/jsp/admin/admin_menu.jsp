@@ -141,13 +141,11 @@
                     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                 </a>
                 <ul id="systemCreer" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                    <li><a href="#"><i class="glyphicon glyphicon-user"></i>查询就业</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>增加就业</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin_query_creer"><i class="glyphicon glyphicon-user"></i>查询就业</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin_add_creer"><i class="glyphicon glyphicon-th-list"></i>增加就业</a></li>
                 </ul>
             </li>
-
         </ul>
-
         <!--主页位置，需要用到栅格系统-->
     </div>
 </div>

@@ -12,4 +12,5 @@ public interface CompanyService {
     public Company findCompanyById(int company_id);
     public void updateCompanyById(Company company);
     public void deleteCompanyById(int company_id);
+    public List<Company> selectCompanyInfo(Company company);
 }

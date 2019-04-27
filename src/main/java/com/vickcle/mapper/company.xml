@@ -5,6 +5,9 @@
 <mapper namespace="com.vickcle.dao.CompanyDao">
     <select id="findAllCompany" resultType="Company" parameterType="com.vickcle.model.Company">
   		select * from hg_company where 1 = 1
+        <if test="company_code!=null and company_code!= 'empty'">
+            and company_code = #{company_code}
+        </if>
         <if test="company_name!=null and company_name!= 'empty'">
             and company_name = #{company_name}
         </if>
@@ -23,6 +26,17 @@
 
     <select id="findCompanyById" resultType="Company">
   		select * from hg_company where company_id = #{company_id};
+  	</select>
+
+    <select id="selectCompanyInfo" resultType="Company" parameterType="com.vickcle.model.Company">
+  		select * from hg_company where 1 = 1
+        <if test="company_code!=null and company_code!= 'empty'">
+            and company_code = #{company_code}
+        </if>
+        <if test="company_name!=null and company_name!= 'empty'">
+            and company_name = #{student_name}
+        </if>
+  		;
   	</select>
 
     <insert id="insertCompany">

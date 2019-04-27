@@ -45,4 +45,9 @@ public class CompanyServiceImpl implements CompanyService{
     public void deleteCompanyById(int company_id) {
         companyDao.deleteCompanyById(company_id);
     }
+
+    @Override
+    public List<Company> selectCompanyInfo(Company company){
+        return companyDao.selectCompanyInfo(company);
+    }
 }

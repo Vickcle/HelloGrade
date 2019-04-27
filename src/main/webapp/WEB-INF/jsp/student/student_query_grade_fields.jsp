@@ -19,26 +19,26 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\reset.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\xcConfirm.css">
 <style type="text/css">
-    #myModal{
-        position:absolute;
-        z-index: 200;
-        top: 50px;
-        left:250px;
-        border: 1px solid #2B2E33;
-        border-radius: 5px;
-        background-color: #f0f9fe;
-        width: 400px;
-        height: 280px;
-        padding-left: 12px;
-    }
-    #myModal h2{
-        margin-left: 30px;
-    }
-    #close_myModal{
-        margin-left: 30px;
-        margin-top: 40px;
-        width:150px;
-    }
+    /*#myModal{*/
+        /*position:absolute;*/
+        /*z-index: 200;*/
+        /*top: 50px;*/
+        /*left:250px;*/
+        /*border: 1px solid #2B2E33;*/
+        /*border-radius: 5px;*/
+        /*background-color: #f0f9fe;*/
+        /*width: 400px;*/
+        /*height: 280px;*/
+        /*padding-left: 12px;*/
+    /*}*/
+    /*#myModal h2{*/
+        /*margin-left: 30px;*/
+    /*}*/
+    /*#close_myModal{*/
+        /*margin-left: 30px;*/
+        /*margin-top: 40px;*/
+        /*width:150px;*/
+    /*}*/
 </style>
 <body>
 <jsp:include page="student_head.jsp"/>
@@ -66,12 +66,26 @@
                 </div>
             </div>
             <table class="table" id="tableL01"></table>
-            <div class="div"  id="myModal">
-                <span>下一门课程名为：</span>
-                <h2><label class="label label-success" id="next_name"></label></h2>
-                <span>预计得分为：</span>
-                <h2><label class="label label-info" id="next_grade"></label></h2>
-                <input class="btn btn-info" id="close_myModal" type="button" value="关闭"/>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">成绩预测</h4>
+                        </div>
+                        <div class="modal-body">下一门课程为：
+                            <h2><label class="label label-success" id="next_name"></label></h2>
+                        </div>
+                        <div class="modal-body">下一门课程成绩为：
+                            <h2><label class="label label-info" id="next_grade"></label></h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <%--<button type="button" class="btn btn-primary">提交更改</button>--%>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
             </div>
         </div>
     </div>
@@ -93,7 +107,6 @@
     //预加载事件
     $(function(){
         getGradeInfo();
-        $("#myModal").hide();
     });
     //ajax请求数据：
     function getGradeInfo(){
@@ -176,7 +189,7 @@
         var grade_total = row["grade_total"];
         var id = value;
         var result = "";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id +"', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
+        result += "<a href='javascript:;' data-toggle='modal' data-target='#myModal' class='btn btn-xs green ' onclick=\"EditViewById('" + id +"', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
         return result;
     }
 
@@ -196,7 +209,6 @@
             success:function(data){
                 $("#next_name").html(data["course_name"]);
                 $("#next_grade").html(data["data"]);
-                $("#myModal").show();
             },
             error:function(){
                 alert("error");
@@ -205,7 +217,6 @@
     }
     //进行删除操作
     //17184305914
-    $("")
     //转到查看界面
 
 </script>

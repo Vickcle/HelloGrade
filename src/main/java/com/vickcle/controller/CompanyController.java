@@ -55,13 +55,26 @@ public class CompanyController {
 
     @RequestMapping("/admin_query_company_term")
     @ResponseBody
-    public String toAdminQueryCompanyTerm(@Param("company_type") String company_type,@Param("company_name") String company_name){
+    public String toAdminQueryCompanyTerm(@Param("company_code") String company_code,@Param("company_name") String company_name,@Param("company_type") String company_type){
         company_type = ("".equals(company_type))?"empty":company_type;
+        company_code = ("".equals(company_code))?"empty":company_code;
         company_name = ("".equals(company_name))?"empty":company_name;
-        Company company = new Company(company_name,company_type);
+        Company company = new Company(company_code,company_name,company_type);
         Map<String,List<Company>> map = new HashMap<>();
         List<Company> list = companyService.findAllCompany(company);
         map.put("data",list);
         return JSON.toJSONString(map);
     }
+    @RequestMapping("/query_company_info")
+    @ResponseBody
+    public String QueryCompanyInfo(@Param("company_code") String company_code,@Param("company_name") String company_name){
+        company_code = ("".equals(company_code))?"empty":company_code;
+        company_name = ("".equals(company_name))?"empty":company_name;
+        Company company = new Company(company_code,company_name);
+        Map<String,List<Company>> map = new HashMap<>();
+        List<Company> list = companyService.findAllCompany(company);
+        map.put("data",list);
+        return JSON.toJSONString(map);
+    }
+
 }

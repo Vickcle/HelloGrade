@@ -1,5 +1,6 @@
 package com.vickcle.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
@@ -14,11 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.vickcle.util.DealRow.changeToStudent;
 
@@ -122,6 +126,17 @@ public class StudentController {
         student.setLast_update_by(user_id);
         studentService.updateStudentById(student);
         return "redirect:/student_main";
+    }
+    @RequestMapping("/query_student_info")
+    @ResponseBody
+    public String queryStudentInfo(@Param("student_code")String student_code,@Param("student_name") String student_name){
+        Map<String,List<Student>> msg = new HashMap<>();
+        student_code = ("".equals(student_code))?"empty":student_code;
+        student_name = ("".equals(student_name))?"empty":student_name;
+        Student student = new Student(student_code,student_name);
+        List<Student> list =  studentService.selectStudentInfo(student);
+        msg.put("data",list);
+        return JSON.toJSONString(msg);
     }
 
     public  boolean dealStudent(String person,int user_id){

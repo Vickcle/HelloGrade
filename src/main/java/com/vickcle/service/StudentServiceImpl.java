@@ -40,4 +40,8 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudentById(int student_id){
         studentDao.deleteStudentById(student_id);
     }
+    @Override
+    public List<Student> selectStudentInfo(Student student){
+        return  studentDao.selectStudentInfo(student);
+    }
 }

@@ -13,4 +13,5 @@ public interface StudentService {
     public Student findStudentById(int student_id);
     public void updateStudentById(Student student);
     public void deleteStudentById(int student_id);
+    public List<Student> selectStudentInfo(Student student);
 }

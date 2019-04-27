@@ -16,7 +16,13 @@ public class Company {
     public Company() {
     }
 
-    public Company(String company_name, String company_type) {
+    public Company(String company_code, String company_name) {
+        this.company_code = company_code;
+        this.company_name = company_name;
+    }
+
+    public Company(String company_code, String company_name, String company_type) {
+        this.company_code = company_code;
         this.company_name = company_name;
         this.company_type = company_type;
     }
