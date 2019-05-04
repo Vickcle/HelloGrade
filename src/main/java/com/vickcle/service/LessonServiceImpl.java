@@ -2,6 +2,7 @@ package com.vickcle.service;
 
 import com.vickcle.dao.LessonDao;
 import com.vickcle.model.Lesson;
+import com.vickcle.model.LessonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,9 @@ public class LessonServiceImpl implements LessonService{
     public void deleteLessonById(int lesson_id){
         lessondao.findLessonById(lesson_id);
     }
+    @Override
+    public List<LessonObject> selectLessonInfo(LessonObject lessonObject){
+        return lessondao.selectLessonInfo(lessonObject);
+    }
+
 }

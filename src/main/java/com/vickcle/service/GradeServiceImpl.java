@@ -32,7 +32,7 @@ public class GradeServiceImpl implements GradeService{
     }
     @Override
     public void deleteGradeById(int grade_id){
-        gradedao.findGradeById(grade_id);
+        gradedao.deleteGradeById(grade_id);
     }
     @Override
     public List<GradeObject> selectAllGradeInfo(){

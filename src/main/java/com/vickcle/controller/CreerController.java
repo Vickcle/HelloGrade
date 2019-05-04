@@ -61,7 +61,7 @@ public class CreerController {
     }
     @RequestMapping("/add_creer_database")
     public String toAddCreerDB(@Param("creer_type" )String creer_type,@Param("student_id") String student_id,@Param("company_id") String company_id){
-        creer_type = ("".equals(creer_type))?"0":creer_type;
+        creer_type = ("".equals(creer_type))?"empty":creer_type;
         student_id = ("".equals(student_id))?"0":student_id;
         company_id = ("".equals(creer_type))?"0":company_id;
         int student = Integer.parseInt(student_id);

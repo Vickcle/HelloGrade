@@ -1,17 +1,23 @@
 package com.vickcle.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.vickcle.model.Lesson;
+import com.vickcle.model.LessonObject;
 import com.vickcle.service.ClassService;
 import com.vickcle.service.LessonService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LessonController {
@@ -73,6 +79,18 @@ public class LessonController {
         int user_id = (int)session.getAttribute("user_id");
         dealLesson(person,user_id);
         return "redirect:/admin_query_lesson";
+    }
+
+    @RequestMapping("/teacher_get_lesson_info")
+    @ResponseBody
+    public String getTeacherLessonInfo(@Param("course_name")String course_name,@Param("course_code") String course_code){
+        course_code = ("".equals(course_code))?"empty":course_code;
+        course_name = ("".equals(course_name))?"empty":course_name;
+        Map<String,List<LessonObject>> msg = new HashMap<>();
+        LessonObject lessonObject = new LessonObject(course_code,course_name);
+        List<LessonObject> list = lessonService.selectLessonInfo(lessonObject);
+        msg.put("data",list);
+        return JSON.toJSONString(msg);
     }
 
     public  boolean dealLesson(String person,int user_id){

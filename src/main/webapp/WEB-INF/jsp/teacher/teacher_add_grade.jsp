@@ -9,31 +9,29 @@
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:useBean id="creer" class="com.vickcle.model.Creer" scope="request" />
+<jsp:useBean id="grade" class="com.vickcle.model.Grade" scope="request" />
 <html>
 <meta charset="utf-8">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/title.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\bootstrap-table.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\reset.css">
+<style type="text/css">
+
+</style>
 <body>
-<jsp:include page="admin_head.jsp"/>
-<div class="col-md-2 "><jsp:include page="admin_menu.jsp"/>
+<jsp:include page="teacher_head.jsp"/>
+<div class="col-md-2 "><jsp:include page="teacher_menu.jsp"/>
 </div>
 <div class="col-md-10" style="float: left;">
     <div class="container col-md-10 col-md-offset-2">
-        填写就业信息：
+        填写成绩信息：
         <br>
         <table border="1">
-            <form method="post" modelAttribute="creer"
-                     action="${pageContext.request.contextPath }/add_creer_database">
+            <sf:form method="post" modelAttribute="grade"
+                  action="${pageContext.request.contextPath }/teacher_add_grade_db">
                 <div class="div-jan">
-                    <span>就业类型：</span>
-                    <select id="creer_type" style="width:150px;height:25px;" path="creer_type">
-                    <option id="in_company" value="就业">就业</option>
-                    <option id="in_school" value="升学">升学</option>
-                    </select>
-                    <input id="student_id" path="student_id" type="hidden"/>
-                    <input id="company_id" path="company_id" type="hidden"/>
+                    <sf:input id="student_id" path="student_id" type="hidden"/>
+                    <sf:input id="lesson_id" path="lesson_id" type="hidden"/>
                 </div>
                 <div class="div-jan">
                     <span>学生学号</span>
@@ -44,15 +42,37 @@
                     <input  data-toggle="modal" data-target="#studentInfo" type ="text" id="student_name"/>
                 </div>
                 <div class="div-jan">
-                    <span>企业编号</span>
-                    <input type ="text"  data-toggle="modal" data-target="#companyInfo" id="company_code"/>
+                    <span>课程编号</span>
+                    <input type ="text"  data-toggle="modal" data-target="#courseInfo" id="course_code"/>
                 </div>
                 <div class="div-jan">
-                    <span>企业名称</span>
-                    <input  data-toggle="modal" data-target="#companyInfo" type ="text" id="company_name"/>
+                    <span>课程名称</span>
+                    <input  data-toggle="modal" data-target="#courseInfo" type ="text" id="course_name"/>
                 </div>
-                <div class="div-jan"><input id="submitCreer" type="button" value="增加" class="update btn btn-info"></div>
-            </form>
+
+                <div class="div-jan">
+                    <span>实验成绩</span>
+                    <sf:input  path="grade_test"  type ="text" id="grade_test"/>
+                </div>
+                <div class="div-jan">
+                    <span>平时成绩</span>
+                    <sf:input  path="grade_usual"  type ="text" id="grade_usual"/>
+                </div>
+                <div class="div-jan">
+                    <span>期中成绩</span>
+                    <sf:input  path="grade_interim"   type ="text" id="grade_interim"/>
+                </div>
+                <div class="div-jan">
+                    <span>期末成绩</span>
+                    <sf:input  path="grade_terminal"  type ="text" id="grade_terminal"/>
+                </div>
+                <div class="div-jan">
+                    <span>总成绩</span>
+                    <sf:input  path="grade_total"   type ="text" id="grade_total"/>
+                </div>
+
+                <div class="div-jan"><input id="submitGrade" type="submit" value="增加" class="update btn btn-info"></div>
+            </sf:form>
         </table>
     </div>
     <div class="modal fade" id="studentInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -91,7 +111,7 @@
         </div><!-- /.modal -->
     </div>
 
-    <div class="modal fade" id="companyInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="courseInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -163,7 +183,7 @@
 
     $(function(){
         getStudentInfo();
-        getCompanyInfo();
+        getLessonInfo();
     });
 
 
@@ -234,27 +254,26 @@
                 $("input[id='student_code']").blur();
                 $("input[id='student_name']").blur();
                 $("#studentInfo").modal('hide');
-
             }
         });
     }
 
-    function getCompanyInfo(){
-        var company_code =  $("input[id='company_code']").val();
-        var company_name = $("input[id='company_name']").val();
+    function getLessonInfo(){
+        var course_code =  $("input[id='course_code']").val();
+        var course_name = $("input[id='course_code']").val();
         $.ajax({
-            url:'/query_company_info',
+            url:'/teacher_get_lesson_info',
             type:'POST',
             async:true,
             data:{
-                company_code:company_code,
-                company_name:company_name
+                course_code:course_code,
+                course_name:course_name
             },
             timeout:5000,
             dataType:'json',
             success:function(data){
-                var company = data["data"];
-                var str = JSON.stringify(company);
+                var lesson = data["data"];
+                var str = JSON.stringify(lesson);
                 pushTable2Info(str);
             },
             error:function(){
@@ -269,20 +288,22 @@
             {
                 title: '序号',
                 align: 'center',
-                valign: 'bottom',
                 formatter: function(value, row, index) {
                     return index + 1;
                 }},
-            {field: 'company_code', title: '公司编号', sortable: true},
-            {field: 'company_name', title: '公司名称', },
-            {field: 'company_id',visible: false},
+            {field: 'lesson_id',align: 'center',title:'课程id'},
+            {field: 'course_code', title: '课程编号', sortable: true},
+            {field: 'course_name', title: '课程名称', },
+            {field: 'course_degree', title: '课程名称', },
+            {field: 'course_time', title: '课程名称', },
+            {field: 'lesson_duration', title: '课程名称', },
         ];
         $('#tableL02').bootstrapTable('destroy');   //动态加载表格之前，先销毁表格
 
         $('#tableL02').bootstrapTable({//表格初始化
             columns: tableColumns,  //表头
             data:data1, //通过ajax返回的数据
-            width:300,
+            width:600,
             height:300,
             dataType: "json",
             method: 'get',
@@ -299,12 +320,12 @@
             showFooter: false,
             clickToSelect: false,
             onDblClickRow: function (row) {
-                $("input[id='company_code']").attr("value",row.company_code);
-                $("input[id='company_name']").attr("value",row.company_name);
-                $("input[id='company_id']").attr("value",row.company_id);
-                $("input[id='company_code']").blur();
-                $("input[id='company_name']").blur();
-                $("#companyInfo").modal('hide');
+                $("input[id='course_code']").attr("value",row.course_code);
+                $("input[id='course_name']").attr("value",row.course_name);
+                $("input[id='lesson_id']").attr("value",row.lesson_id);
+                $("input[id='course_code']").blur();
+                $("input[id='course_name']").blur();
+                $("#courseInfo").modal('hide');
 
             }
         });
@@ -319,37 +340,37 @@
     // $("#search_btn3").click(function () {
     //     getSchoolInfo();
     // });
-    $("#submitCreer").click(function () {
-        var creer_type = $("#creer_type").val();
-        var student_id = $("#student_id").val();
-        var company_id = $("#company_id").val();
-        $.ajax({
-            url:'/add_creer_database',
-            type:'POST',
-            async:true,
-            data:{
-                creer_type:creer_type,
-                student_id:student_id,
-                company_id:company_id
-
-            },
-            timeout:5000,
-            dataType:'json',
-            success:function(data){
-                var rep = data["data"];
-                var str = JSON.stringify(rep);
-                var str2 = JSON.parse(str);
-                if(str2 == 'success'){
-                    window.location.href = "/admin_query_creer";
-                }else {
-                    alert("error");
-                }
-            },
-            error:function(data){
-
-            }
-        });
-    });
+    // $("#submitCreer").click(function () {
+    //     var creer_type = $("#creer_type").val();
+    //     var student_id = $("#student_id").val();
+    //     var company_id = $("#company_id").val();
+    //     $.ajax({
+    //         url:'/add_creer_database',
+    //         type:'POST',
+    //         async:true,
+    //         data:{
+    //             creer_type:creer_type,
+    //             student_id:student_id,
+    //             company_id:company_id
+    //
+    //         },
+    //         timeout:5000,
+    //         dataType:'json',
+    //         success:function(data){
+    //             var rep = data["data"];
+    //             var str = JSON.stringify(rep);
+    //             var str2 = JSON.parse(str);
+    //             if(str2 == 'success'){
+    //                 window.location.href = "/teacher_query_creer";
+    //             }else {
+    //                 alert("error");
+    //             }
+    //         },
+    //         error:function(data){
+    //
+    //         }
+    //     });
+    // });
 
 </script>
 </html>

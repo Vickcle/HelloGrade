@@ -1,6 +1,7 @@
 package com.vickcle.dao;
 
 import com.vickcle.model.Lesson;
+import com.vickcle.model.LessonObject;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface LessonDao {
     public void  insertLesson(Lesson lesson);
     public void updateLessonById(Lesson lesson);
     public void deleteLessonById(int lesson_id);
+    public List<LessonObject> selectLessonInfo(LessonObject lessonObject);
 }

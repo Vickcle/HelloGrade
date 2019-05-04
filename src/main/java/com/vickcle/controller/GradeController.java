@@ -130,6 +130,17 @@ public class GradeController {
         msg.put("state","1");
         return JSON.toJSONString(msg);
     }
+
+    @RequestMapping("/teacher_add_grade_db")
+    public String toTeacherAddGradeDB(Grade grade){
+        if(grade!=null){
+            //这里需要校验是不是已经有啦，如果有则无法添加
+            System.out.println(grade.toString());
+            gradeService.insertGrade(grade);
+        }
+        return "redirect:teacher_query_grade_fields";
+    }
+
     @RequestMapping("/teacher_query_grade_pages")
     public String toTeacherQueryGradePages(Model model,HttpSession session){
         int page_num = (int) session.getAttribute("page_num");
@@ -144,6 +155,11 @@ public class GradeController {
         model.addAttribute("list",list);
         model.addAttribute("page_total",page_total);
         return "teacher/teacher_query_grade";
+    }
+
+    @RequestMapping("/teacher_add_grade")
+    public String toTeacherGradeAdd(){
+        return "teacher/teacher_add_grade";
     }
 
     @RequestMapping("/admin_add_grade")
@@ -180,6 +196,7 @@ public class GradeController {
         return "student/student_query_grade_fields";
     }
 
+
 //    @RequestMapping("/student_query_grade_term")
 //    @ResponseBody
 //    public String toStudentQueryGradeTerm(@Param("teacher_name") String teacher_name,@Param("course_name") String course_name){
@@ -195,10 +212,10 @@ public class GradeController {
 //    }
 
     //完成数据库删除操作
-    @RequestMapping("/delete_grade_database")
-    public String toDeleteGradeDB(int grade_id){
+    @RequestMapping("/teacher_delete_grade_database")
+    public String toDeleteGradeDB(@Param("grade_id") int grade_id){
         gradeService.deleteGradeById(grade_id);
-        return "redirect:/admin_query_grade";
+        return "redirect:teacher_query_grade_fields";
     }
 
     //转到excel导入界面

@@ -40,6 +40,17 @@ public class TeacherController {
     GradeService gradeService;
     @Autowired
     StudentService studentService;
+
+    @RequestMapping("/teacher_update_password")
+    public String toTeacherUpdatePassword(Model model,HttpSession session){
+        int teacher_id = (int)session.getAttribute("user_id");
+        Teacher teacher = teacherService.findTeacherById(teacher_id);
+        if(teacher!=null){
+            model.addAttribute("teacher",teacher);
+            return "teacher/teacher_update_password";
+        }
+        return  "teacher/teacher_main";
+    }
     //跳转界面
     @RequestMapping("/admin_query_teacher")
     public String toAdminQueryTeacher(Model model , HttpServletResponse response){
@@ -60,6 +71,37 @@ public class TeacherController {
         teacherService.insertTeacher(teacher);
         return "redirect:/admin_query_teacher";
     }
+
+    @RequestMapping("update_teacher_password_database")
+    public String updatePasswordDB(Teacher teacher, HttpSession session, @Param("new_password") String new_password){
+        int user_id = (int)session.getAttribute("user_id");
+        if ("".equals(new_password)){
+            teacher.setLast_update_by(user_id);
+            teacherService.updateTeacherById(teacher);
+        }else{
+            teacher.setTeacher_pwd(new_password);
+            teacher.setLast_update_by(user_id);
+            teacherService.updateTeacherById(teacher);
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping("/teacher_update_info")
+    public String toTeacherUpdateInfo(Model model,HttpSession session){
+        int teacher_id = (int)session.getAttribute("user_id");
+        Teacher teacher = teacherService.findTeacherById(teacher_id);
+        model.addAttribute("teacher",teacher);
+        return "teacher/teacher_update_info";
+    }
+    @RequestMapping("/update_teacher_info_database")
+    public String toUpdateInfoDB(Teacher teacher,HttpSession session){
+        int user_id = (int)session.getAttribute("user_id");
+        teacher.setLast_update_by(user_id);
+        teacherService.updateTeacherById(teacher);
+        return "redirect:/teacher_main";
+    }
+
+
     //去到修改界面
     @RequestMapping("/admin_update_teacher")
     public String toAdminTeacherUpdate(int teacher_id,Model model){

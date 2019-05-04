@@ -16,6 +16,16 @@
   		select * from hg_lesson where course_id  = #{course_id} and teacher_id = #{teacher_id} and lesson_duration = #{lesson_duration};
   	</select>
 
+    <select id="selectLessonInfo" resultType="LessonObject" parameterType="com.vickcle.model.LessonObject">
+        select * from lesson_info where 1 = 1
+        <if test="course_name!=null and course_name!= 'empty'">
+            and course_name = #{course_name}
+        </if>
+        <if test="course_code!=null and course_code!= 'empty'">
+            and course_code = #{course_code}
+        </if>
+        order by lesson_id;
+    </select>
 
     <insert id="insertLesson">
         INSERT INTO hg_lesson (
