@@ -11,6 +11,7 @@ import com.vickcle.service.CourseService;
 import com.vickcle.service.GradeService;
 import com.vickcle.service.LessonService;
 import com.vickcle.service.StudentService;
+import com.vickcle.util.ExportExcel;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -251,6 +253,62 @@ public class GradeController {
         return "redirect:/teacher_query_grade";
     }
 
+    @RequestMapping("/teacher_query_class_grade")
+    public String toTeacherQueryClassGrade(){
+        return "teacher/teacher_query_class_grade";
+    }
+
+    //获取班级成绩数据，包括不及格人数，及格人数，各个分段的人数
+    @RequestMapping("/teacher_get_class_grade")
+    @ResponseBody
+    public String toTeacherGetClassGrade(@Param("class_name")String class_name,@Param("course_name") String course_name){
+        Map<String,List<ClassGrade>> msg = new HashMap<>();
+        class_name = ("".equals(class_name))?"empty":class_name;
+        course_name = ("".equals(course_name))?"empty":course_name;
+        ClassGrade classGrade = new ClassGrade(class_name,course_name);
+        List<ClassGrade> list = gradeService.selectGradeInfoByClass(classGrade);
+        //当size>当前页*记录数时
+        System.out.println(list.toString());
+        msg.put("data",list);
+        return JSON.toJSONString(msg);
+    }
+
+    //在班级成绩哪里点击查看将进入该界面，传入俩个参数，决定班级和课程；
+    @RequestMapping("/teacher_class_grade_details")
+    public String toTeacherClassGradeDetails(@Param("class_name")String class_name,@Param("lesson_id") String lesson_id ,Model model,HttpSession session){
+        class_name = ("".equals(class_name))?"empty":class_name;
+        lesson_id = ("".equals(lesson_id))?"0":lesson_id;
+        Map<String,List<GradeObject>> msg = new HashMap<>();
+        List<GradeObject> list = new ArrayList<>() ;
+        System.out.println(lesson_id);
+        try {
+            int id = Integer.parseInt(lesson_id);
+            GradeObject gradeObject = new GradeObject(class_name,id);
+            list = gradeService.selectGradeInfoByTerms(gradeObject);
+            msg.put("data",list);
+            model.addAttribute("list",JSON.toJSONString(msg));
+            session.setAttribute("gradeObject",gradeObject);
+            return "teacher/teacher_select_class_grade";
+        }catch (Exception e){
+            return "redirect:/teacher_main";
+        }
+
+    }
+
+    //对查询到的班级成绩信息进行下载
+    @RequestMapping("/download_class_grade_info")
+    public String toDownloadClassGradeInfo(HttpSession session, HttpServletResponse response){
+        Map<String,String> msg = new HashMap<>();
+
+            GradeObject gradeObject =(GradeObject)session.getAttribute("gradeObject");
+            List<GradeObject> list = new ArrayList<>() ;
+            list = gradeService.selectGradeInfoByTerms(gradeObject);
+            ExportExcel<GradeObject> ee= new ExportExcel<GradeObject>();
+            String[] headers = { "编号", "学号", "姓名", "教师工号","教师姓名","班级","课程编号","课程名","" };
+            String fileName = gradeObject.getClass_name() +"-成绩表";
+            ee.exportExcel(headers,list,fileName,response);
+        return "redirect:/teacher_main";
+    }
 
     //获得成绩关联信息
     //这里要做什么，传入一门已经得到成绩的课程，去找他的后续课程，一旦找到，那么去找已经产生成绩的组训练模型，若无，则返回String无数据

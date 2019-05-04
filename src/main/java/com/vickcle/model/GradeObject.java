@@ -2,6 +2,7 @@ package com.vickcle.model;
 
 public class GradeObject {
     private int grade_id;
+    private int student_id;
     private String student_code;
     private String student_name;
     private String teacher_code;
@@ -19,6 +20,7 @@ public class GradeObject {
     private double grade_interim;
     private double grade_terminal;
     private double grade_total;
+    private int lesson_id;
     private String grade_sign;
 
     public GradeObject() {
@@ -59,6 +61,11 @@ public class GradeObject {
         this.student_name = student_name;
         this.class_name = class_name;
         this.course_name = course_name;
+    }
+
+    public GradeObject(String class_name, int lesson_id) {
+        this.class_name = class_name;
+        this.lesson_id = lesson_id;
     }
 
     public GradeObject(String teacher_name, String course_name) {
@@ -128,6 +135,14 @@ public class GradeObject {
 
     public void setCourse_name(String course_name) {
         this.course_name = course_name;
+    }
+
+    public int getLesson_id() {
+        return lesson_id;
+    }
+
+    public void setLesson_id(int lesson_id) {
+        this.lesson_id = lesson_id;
     }
 
     public String getCourse_type() {

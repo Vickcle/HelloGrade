@@ -20,15 +20,6 @@ public class SchoolController {
     @RequestMapping("/admin_query_school")
     public String toAdminQuerySchool(Model model , HttpServletResponse response){
         List<School> list = schoolService.findAllSchool();
-//需要导入alibaba的fastjson包
-//写不了复杂标题的excel...,在做分析操作时可以用
-//        ExportExcel<School> ee= new ExportExcel<School>();
-//        String[] headers = { "序号", "姓名", "性别", "年龄" };
-//        String fileName = "用户信息表";
-//        ee.exportExcel(headers,list,fileName,response);
-//        for(School attribute : list) {
-//            System.out.println(attribute);
-//        }
         model.addAttribute("list",list);
         return "admin/admin_query_school";
     }

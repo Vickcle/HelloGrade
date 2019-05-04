@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Vickcle
-  Date: 2019/4/15
+  Date: 2019/5/4
   Time: 15:48
   To change this template use File | Settings | File Templates.
 --%>
@@ -30,20 +30,16 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">学生学号：</label>
+                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">班级：</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="student_code"/>
+                        <input type="text" class="form-control" name="Name" id="class_name"/>
                     </div>
-                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">学生姓名：</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="student_name"/>
-                    </div>
-                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">课程名称：</label>
+                    <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">课程：</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="Name" id="course_name"/>
                     </div>
-                    <div class="col-sm-1 col-sm-offset-9">
-                        <button class="btn btn-primary" style="width: 190px;margin-top: 10px;margin-left:18px;" id="search_btn">查询</button>
+                    <div class="col-sm-1 col-sm-offset-1">
+                        <button class="btn btn-primary" style="width: 190px;margin-top: 2px;margin-left:18px;" id="search_btn">查询</button>
                     </div>
                 </div>
             </div>
@@ -66,28 +62,31 @@
 
 
     //预加载事件
+    $("#search_btn").click(function () {
+        getGradeInfo();
+    });
+
+
     $(function(){
         getGradeInfo();
     });
     //ajax请求数据：
     function getGradeInfo(){
-        var student_code =  $("input[id='student_code']").val();
-        var student_name = $("input[id='student_name']").val();
+        var class_name = $("input[id='class_name']").val();
         var course_name =$("input[id='course_name']").val();
         $.ajax({
-            url:'/teacher_query_grade_term',
+            url:'/teacher_get_class_grade',
             type:'POST',
             async:true,
             data:{
-                student_code:student_code,
-                student_name:student_name,
+                class_name:class_name,
                 course_name:course_name
             },
             timeout:5000,
             dataType:'json',
             success:function(data){
-                var gradeObjects = data["data"];
-                var str = JSON.stringify(gradeObjects);
+                var classGrades = data["data"];
+                var str = JSON.stringify(classGrades);
                 pushTableInfo(str);
             },
             error:function(){
@@ -99,16 +98,21 @@
     function pushTableInfo(datas) {
         var data = JSON.parse(datas);
         var tableColumns = [
-            {field: 'student_code', title: '学号', sortable: true},
-            {field: 'student_name', title: '姓名', },
+            {field: 'class_name', title: '班级', sortable: true},
+            {field: 'course_code', title: '课程编号'},
             {field: 'course_name', title: '课程名称'},
-            {field: 'grade_test', title: '实验成绩', sortable: true},
-            {field: 'grade_usual', title: '平时成绩', sortable: true},
-            {field: 'grade_interim', title: '期中成绩', sortable: true},
-            {field: 'grade_terminal', title: '期末成绩', sortable: true},
-            {field: 'grade_total', title: '总成绩', sortable: true},
+            {field: 'sum_num', align:'center', title: '总人数',},
+            {field: 'absence_num',align:'center', title: '缺考',},
+            {field: 'max_grade',align:'center', title: '最高分', },
+            {field: 'min_grade',align:'center', title: '最低分',},
+            {field: 'avg_grade',align:'center', title: '平均分', sortable: true},
+            {field: 'nine_num',align:'center', title: '>90', sortable: true},
+            {field: 'eight_num',align:'center', title: '80-90', sortable: true},
+            {field: 'seven_num',align:'center', title: '70-80', sortable: true},
+            {field: 'six_num',align:'center', title: '60-70', sortable: true},
+            {field: 'failed_num',align:'center', title: '<60', sortable: true},
             {
-                field: 'grade_id',
+                field: 'lesson_id',
                 title: '操作',
                 width: 120,
                 align: 'center',
@@ -121,7 +125,7 @@
         $('#tableL01').bootstrapTable({//表格初始化
             columns: tableColumns,  //表头
             data:data, //通过ajax返回的数据
-            width:300,
+            width:600,
             height:400,
             method: 'get',
             pageSize: 6,
@@ -145,17 +149,18 @@
     });
 
     function actionFormatter(value, row, index) {
-        var id = value;
+        var lesson_id = value;
         var result = "";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
-        result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
-        result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteById('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+        var class_name = row["class_name"];
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + lesson_id + "','" + class_name + "', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
         return result;
     }
 
     //转到查看界面
-    function EditViewById(id){
-        console.log("edit"+id);
+    function EditViewById(lesson_id,class_name){
+        //此处可以做班级查询的细节，并且提供下载
+
+        window.location.href = "/teacher_class_grade_details?class_name="+class_name+"&lesson_id="+lesson_id;
     }
     //进行删除操作
     function DeleteById(id) {

@@ -65,8 +65,8 @@
                     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                 </a>
                 <ul id="systemGrade" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                    <li><a href="${pageContext.request.contextPath}/"><i class="glyphicon glyphicon-user"></i>查询个人成绩</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>查询班级成绩</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacher_query_grade_fields"><i class="glyphicon glyphicon-user"></i>查询个人成绩</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacher_query_class_grade"><i class="glyphicon glyphicon-th-list"></i>查询班级成绩</a></li>
                 </ul>
             </li>
 

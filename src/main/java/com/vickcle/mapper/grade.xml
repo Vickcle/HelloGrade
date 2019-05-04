@@ -66,6 +66,12 @@
         <if test="teacher_name!=null and teacher_name!= 'empty'">
             and teacher_name = #{teacher_name}
         </if>
+        <if test="class_name!=null and class_name!= 'empty'">
+            and class_name = #{class_name}
+        </if>
+        <if test="lesson_id!=null and lesson_id!= 0 ">
+            and lesson_id = #{lesson_id}
+        </if>
         order by student_code;
     </select>
     <select id="selectGradeInfoByGradeId" resultType="GradeObject">
@@ -75,4 +81,27 @@
       ${sql_sentences}
     </select>
 
+    <!--此处用于查询班级成绩统计数据-->
+    <select id="selectGradeInfoByClass" resultType="ClassGrade"  parameterType="com.vickcle.model.ClassGrade">
+        select * from summary_grade where 1 = 1
+        <if test="class_name!=null and class_name!= 'empty'">
+            and class_name = #{class_name}
+        </if>
+        <if test="course_name!=null and course_name!= 'empty'">
+            and course_name = #{course_name}
+        </if>
+        order by class_name;
+    </select>
+
+    <!--此处为就业查询成绩信息，所需要的只有成绩id，学生id，课程id，课程得分-->
+    <select id="selectGradeForCreer" resultType="GradeCreer"  parameterType="com.vickcle.model.GradeCreer">
+        select * from grade_for_creer where 1 = 1
+        <if test="student_id!=null and student_id!= 0">
+            and student_id = #{student_id}
+        </if>
+        <if test="course_id!=null and course_id!= 0">
+            and course_id = #{course_id}
+        </if>
+        order by course_id;
+    </select>
 </mapper>

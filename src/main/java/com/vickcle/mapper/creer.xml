@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vickcle.dao.CreerDao">
     <select id="findAllCreer" resultType="Creer" parameterType="com.vickcle.model.Creer">
-        select * from hg_creer;
+        select * from hg_creer order by student_id;
     </select>
 
     <select id="findCreerById" resultType="Creer">
