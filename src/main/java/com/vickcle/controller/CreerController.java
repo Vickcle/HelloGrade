@@ -133,6 +133,12 @@ public class CreerController {
         return JSON.toJSONString(map);
     }
 
+    //转到就业推荐界面
+    @RequestMapping("/student_recommend_creer")
+    public String toStudentRecommendCreer(){
+        return "student/student_recommend_creer";
+    }
+
     //此处往下做就业推荐，具体思路如下
     //1.获得目前自己所学的全部课程的成绩信息
     //2.获得已经就业的对于你所学的学习成绩
@@ -198,7 +204,7 @@ public class CreerController {
                             List<Company> companyList = new ArrayList<>();
                             for (Map.Entry<Integer, Integer> entry : mapCreer.entrySet()) {
                                 //System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
-                                Company company = new Company();
+                                Company company;
                                 company = companyService.findCompanyById(entry.getKey());
                                 if(company!=null){
                                     companyList.add(company);
@@ -209,6 +215,7 @@ public class CreerController {
                             return JSON.toJSONString(companyMap);
                         }else{
                             //这里发生错误的概率理论上比较小
+                            System.out.println("没有已经就业的人群，故无参照！");
                         }
                     }
                 }else{

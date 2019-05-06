@@ -32,6 +32,11 @@ public class School {
         this.school_address = school_address;
     }
 
+    public School(String school_code, String school_name) {
+        this.school_name = school_name;
+        this.school_code = school_code;
+    }
+
     public int getSchool_id() {
         return school_id;
     }

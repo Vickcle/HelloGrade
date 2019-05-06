@@ -35,7 +35,7 @@
          academy_code = #{academy_code},
          academy_name = #{academy_name},
          academy_address = #{academy_address},
-         school_id = #{school_id}
+         school_id = #{school_id},
          last_update_by = #{last_update_by},
          last_update_date = NOW()
          where academy_id = #{academy_id};
@@ -44,4 +44,14 @@
     <delete id="deleteAcademyById">
         delete from hg_academy where academy_id = #{academy_id};
     </delete>
+
+    <select id="queryAcademyInfoByTerms" resultType="Academy" parameterType="com.vickcle.model.Academy">
+        select * from hg_academy where 1 = 1
+        <if test="academy_code!=null and academy_code!= 'empty'">
+            and academy_code = #{academy_code}
+        </if>
+        <if test="academy_name!=null and academy_name!= 'empty'">
+            and academy_name = #{academy_name}
+        </if>
+    </select>
 </mapper>

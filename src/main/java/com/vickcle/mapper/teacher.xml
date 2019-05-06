@@ -53,4 +53,14 @@
     <delete id="deleteTeacherById">
         delete from hg_teacher where teacher_id = #{teacher_id};
     </delete>
+
+    <select id="queryTeacherByTerms" resultType="Teacher" parameterType="com.vickcle.model.Teacher">
+  		select * from hg_teacher where 1 = 1
+        <if test="teacher_code!=null and teacher_code!= 'empty'">
+            and teacher_code = #{teacher_code}
+        </if>
+        <if test="teacher_name!=null and teacher_name!= 'empty'">
+            and teacher_name = #{teacher_name}
+        </if>
+  	</select>
 </mapper>

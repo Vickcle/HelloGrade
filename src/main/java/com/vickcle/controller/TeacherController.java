@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +53,7 @@ public class TeacherController {
     }
     //跳转界面
     @RequestMapping("/admin_query_teacher")
-    public String toAdminQueryTeacher(Model model , HttpServletResponse response){
-        List<Teacher> list = teacherService.findAllTeacher();
-        model.addAttribute("list",list);
+    public String toAdminQueryTeacher(){
         return "admin/admin_query_teacher";
     }
     @RequestMapping("/admin_add_teacher")
@@ -136,6 +134,19 @@ public class TeacherController {
         int user_id = (int)session.getAttribute("user_id");
         dealTeacher(person,user_id);
         return "redirect:/admin_query_teacher";
+    }
+
+    @RequestMapping("/query_teacher_info")
+    @ResponseBody
+    public String toQueryTeacherInfo(@Param("teacher_code") String teacher_code,  @Param("teacher_name") String teacher_name){
+        Map<String,List<Teacher>> msg = new HashMap<>();
+        teacher_code = ("".equals(teacher_code))?"empty":teacher_code;
+        teacher_name = ("".equals(teacher_name))?"empty":teacher_name;
+        Teacher teacher = new Teacher(teacher_code,teacher_name);
+        List<Teacher> list = new ArrayList<>();
+        list = teacherService.queryTeacherByTerms(teacher);
+        msg.put("data",list);
+        return JSON.toJSONString(msg);
     }
 
     //学生查询授课教师信息 --通过成绩转，已有视图可以完成这项工作

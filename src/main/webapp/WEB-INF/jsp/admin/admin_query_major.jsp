@@ -14,6 +14,9 @@
 <html>
 <meta charset="utf-8">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/title.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\bootstrap-table.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\reset.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}\css\xcConfirm.css">
 <body>
 <jsp:include page="admin_head.jsp"/>
 <div class="col-md-2 "><jsp:include page="admin_menu.jsp"/>
@@ -21,36 +24,121 @@
 <div class="col-md-10" style="float: left;">
     <div class="container col-md-10">
         <div class="table-responsive col-md-10">
-            <table class="table table-condensed" id="table">
-                <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>专业编号</th>
-                    <th>专业名称</th>
-                    <th>专业类型</th>
-                    <th>修改</th>
-                    <th>删除</th>
-                </tr>
-                </thead><tbody>
-            <% int num = 0 ;%>
-            <c:forEach items="${list}" var="major" >
-                <tr>
-                    <% num = num + 1 ;
-                        out.print("<td>"+ num +"</td>");
-                    %>
-                    <td>${major.major_code}</td>
-                    <td>${major.major_name}</td>
-                    <td>${major.major_type}</td>
-                    <td><a href="${pageContext.request.contextPath}/admin_update_major?major_id=${ major.major_id}">修改</a></td>
-                    <td><a href="${pageContext.request.contextPath}/delete_major_database?major_id=${ major.major_id}">删除</a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-            </table>
-
+            <table class="table" id="tableL01"></table>
+            <div id="myConfirm"></div>
         </div>
     </div>
 </div>
 </body>
+<script src="${pageContext.request.contextPath}\js\jquery.base64.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}\js\bootstrap-table.min.js" type="text/javascript" ></script>
+<script src="${pageContext.request.contextPath}\js\bootstrap-table-zh-CN.min.js" type="text/javascript" ></script>
+<script src="${pageContext.request.contextPath}\js\xcConfirm.js" type="text/javascript" ></script>
+<script src="${pageContext.request.contextPath}\js\base64.js" type="text/javascript" ></script>
+<script src="${pageContext.request.contextPath}\js\tableExport.js" type="text/javascript" ></script>
+<script src="${pageContext.request.contextPath}\js\bootstrap-table-export.js" type="text/javascript" ></script>
+<script>
+    //全局变量：已有数据：
+    //先清空数据
+    //准备表头数据：
 
+
+    //预加载事件
+    $(function(){
+        getMajorInfo();
+    });
+    //ajax请求数据：
+    function getMajorInfo(){
+        $.ajax({
+            url:'/admin_get_major_info',
+            type:'POST',
+            async:true,
+            data:{},
+            timeout:5000,
+            dataType:'json',
+            success:function(data){
+                var majorObjects = data["data"];
+                var str = JSON.stringify(majorObjects);
+                pushTableInfo(str);
+            },
+            error:function(){
+
+            }
+        });
+    }
+
+    function pushTableInfo(datas) {
+        var data = JSON.parse(datas);
+        var tableColumns = [
+            {
+                title: '序号',
+                align: 'center',
+                valign: 'bottom',
+                formatter: function(value, row, index) {
+                    return index + 1;
+                }},
+            {field: 'major_code', title: '专业编号', sortable: true},
+            {field: 'major_name', title: '专业名称', },
+            {field: 'major_type', title: '专业类型',},
+            {
+                field: 'major_id',
+                title: '操作',
+                width: 120,
+                align: 'center',
+                valign: 'middle',
+                formatter: actionFormatter,
+            }
+        ];
+        $('#tableL01').bootstrapTable('destroy');   //动态加载表格之前，先销毁表格
+
+        $('#tableL01').bootstrapTable({//表格初始化
+            columns: tableColumns,  //表头
+            data:data, //通过ajax返回的数据
+            width:300,
+            height:400,
+            dataType: "json",
+            method: 'get',
+            pageSize: 5,
+            pageNumber: 1,
+            toolbar: '#toolbar',
+            cache: false,
+            striped: true,
+            pagination: true,
+            sidePagination: 'client',
+            pageList: [3 ,5 ,7 ],
+            showColumns: false,
+            search: false,
+        });
+    }
+
+
+    function actionFormatter(value, row, index) {
+        var id = value;
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
+        result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+        result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteById('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+        return result;
+    }
+
+    //转到查看界面
+    function EditViewById(id){
+        window.location.href = "/admin_update_major?major_id="+id;
+    }
+    //进行删除操作
+    function DeleteById(id) {
+        var txt=  "确认删除此条记录？";
+        var option = {
+            title: "提示：",
+            btn: parseInt("0011",2),
+            onOk: function(){
+                window.location.href = "/delete_major_database?major_id="+id;
+            }
+        }
+        window.wxc.xcConfirm(txt, "custom", option);
+    }
+
+
+
+</script>
 </html>

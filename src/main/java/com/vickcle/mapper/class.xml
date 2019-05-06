@@ -6,6 +6,18 @@
     <select id="findAllClass" resultType="Class">
   		select * from hg_class;
   	</select>
+
+    <select id="findAllClassObject" resultType="ClassObject">
+  		select * from class_info;
+  	</select>
+
+    <select id="queryMajorInfoByTerms" resultType="ClassObject" parameterType="com.vickcle.model.ClassObject">
+  		select * from class_info where 1 = 1
+        <if test="class_name!=null and class_name!= 'empty'">
+            and class_name = #{class_name}
+        </if>
+  	</select>
+
     <select id="findClassByName" resultType="Class">
   		select * from hg_class where class_name = #{class_name};
   	</select>

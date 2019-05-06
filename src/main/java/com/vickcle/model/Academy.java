@@ -28,6 +28,11 @@ public class Academy {
         this.last_update_date = last_update_date;
     }
 
+    public Academy(String academy_code, String academy_name) {
+        this.academy_code = academy_code;
+        this.academy_name = academy_name;
+    }
+
     public Academy(String academy_code, String academy_name, String academy_address, String school_id) {
         this.academy_code = academy_code;
         this.academy_name = academy_name;

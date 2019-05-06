@@ -11,4 +11,5 @@ public interface SchoolDao {
     public School findSchoolById(int school_id);
     public void updateSchoolById(School school);
     public void deleteSchoolById(int school_id);
+    public List<School> querySchoolInfoByTerms(School school);
  }

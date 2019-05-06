@@ -8,6 +8,7 @@ public interface MajorDao {
     public void insertMajor(Major Major);
     public List<Major> findAllMajor();
     public List<Major> findMajorByName(String name);
+    public List<Major> queryMajorInfoByTerms(Major major);
     public Major findMajorById(int major_id);
     public void updateMajorById(Major major);
     public void deleteMajorById(int major_id);

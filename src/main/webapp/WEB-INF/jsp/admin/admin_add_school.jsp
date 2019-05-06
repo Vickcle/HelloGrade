@@ -18,7 +18,7 @@
 <div class="col-md-2 "><jsp:include page="admin_menu.jsp"/>
 </div>
 <div class="col-md-10" style="float: left;">
-    <div class="container col-md-10">
+    <div class="container col-md-10 col-md-offset-1">
         填写学校信息：
         <br>
         <table border="1">

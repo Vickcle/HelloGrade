@@ -35,4 +35,8 @@ public class AcademyServiceImpl implements AcademyService {
     public void deleteAcademyById(int academy_id){
         academyDao.deleteAcademyById(academy_id);
     }
+    @Override
+    public List<Academy> queryAcademyInfoByTerms(Academy academy){
+        return academyDao.queryAcademyInfoByTerms(academy);
+    }
 }

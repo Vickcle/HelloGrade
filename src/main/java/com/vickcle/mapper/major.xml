@@ -44,4 +44,14 @@
     <delete id="deleteMajorById">
         delete from hg_major where major_id = #{major_id};
     </delete>
+
+    <select id="queryMajorInfoByTerms" resultType="Major" parameterType="com.vickcle.model.Major">
+        select * from hg_major where 1 = 1
+        <if test="major_code!=null and major_code!= 'empty'">
+            and major_code = #{major_code}
+        </if>
+        <if test="major_name!=null and major_name!= 'empty'">
+            and major_name = #{major_name}
+        </if>
+    </select>
 </mapper>

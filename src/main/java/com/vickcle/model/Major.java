@@ -35,6 +35,11 @@ public class Major {
         this.academy_id = academy_id;
     }
 
+    public Major(String major_code, String major_name) {
+        this.major_code = major_code;
+        this.major_name = major_name;
+    }
+
     public int getMajor_id() {
         return major_id;
     }

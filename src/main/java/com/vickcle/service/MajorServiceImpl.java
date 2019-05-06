@@ -35,4 +35,8 @@ public class MajorServiceImpl implements MajorService {
     public void deleteMajorById(int major_id){
         majorDao.deleteMajorById(major_id);
     }
+    @Override
+    public List<Major> queryMajorInfoByTerms(Major major){
+        return majorDao.queryMajorInfoByTerms(major);
+    }
 }

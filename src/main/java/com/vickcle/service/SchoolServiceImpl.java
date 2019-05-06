@@ -35,4 +35,9 @@ public class SchoolServiceImpl implements SchoolService {
     public void deleteSchoolById(int school_id){
         schoolDao.deleteSchoolById(school_id);
     }
+
+    @Override
+    public List<School> querySchoolInfoByTerms(School school){
+        return  schoolDao.querySchoolInfoByTerms(school);
+    }
 }

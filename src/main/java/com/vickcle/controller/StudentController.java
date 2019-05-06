@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -35,9 +34,7 @@ public class StudentController {
     ClassService classService;
     //跳转界面
     @RequestMapping("/admin_query_student")
-    public String toAdminQueryStudent(Model model , HttpServletResponse response){
-        List<Student> list = studentService.findAllStudent();
-        model.addAttribute("list",list);
+    public String toAdminQueryStudent(){
         return "admin/admin_query_student";
     }
     @RequestMapping("/admin_add_student")

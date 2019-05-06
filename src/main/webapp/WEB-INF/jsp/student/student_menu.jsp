@@ -74,8 +74,8 @@
                     <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                 </a>
                 <ul id="systemCreer" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                    <li><a href="#"><i class="glyphicon glyphicon-user"></i>查询企业信息</a></li>
-                    <li><a href="${pageContext.request.contextPath}/get_creer_recommend"><i class="glyphicon glyphicon-th-list"></i>我的就业推荐</a></li>
+                    <%--<li><a href="#"><i class="glyphicon glyphicon-user"></i>查询企业信息</a></li>--%>
+                    <li><a href="${pageContext.request.contextPath}/student_recommend_creer"><i class="glyphicon glyphicon-th-list"></i>我的就业推荐</a></li>
                 </ul>
             </li>
         </ul>

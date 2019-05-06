@@ -242,8 +242,8 @@
     }
 
     function getCompanyInfo(){
-        var company_code =  $("input[id='company_code']").val();
-        var company_name = $("input[id='company_name']").val();
+        var company_code =  $("input[id='search_company_code']").val();
+        var company_name = $("input[id='search_company_name']").val();
         $.ajax({
             url:'/query_company_info',
             type:'POST',
@@ -352,6 +352,8 @@
     //         }
     //     });
     // });
-
+    $("#company_code").on('input propertychange',function () {
+       $("#companyInfo").modal('show');
+    });
 </script>
 </html>

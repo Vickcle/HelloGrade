@@ -23,7 +23,10 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher findTeacherByCode(String teacher_code){
         return  teacherDao.findTeacherByCode(teacher_code);
     }
-
+    @Override
+    public List<Teacher> queryTeacherByTerms(Teacher teacher){
+        return teacherDao.queryTeacherByTerms(teacher);
+    }
     @Override
     public List<Teacher> findTeacherByName(String teacher_name){
         return teacherDao.findTeacherByName(teacher_name);

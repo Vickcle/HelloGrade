@@ -2,6 +2,7 @@ package com.vickcle.service;
 
 import com.vickcle.dao.ClassDao;
 import com.vickcle.model.Class;
+import com.vickcle.model.ClassObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,14 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<Class> findAllClass(){
         return classDao.findAllClass();
+    }
+    @Override
+    public List<ClassObject> findAllClassObject(){
+        return classDao.findAllClassObject();
+    }
+    @Override
+    public List<ClassObject> queryMajorInfoByTerms(ClassObject classObject){
+        return classDao.queryMajorInfoByTerms(classObject);
     }
     @Override
     public Class findClassByName(String name){

@@ -26,7 +26,7 @@
             last_update_date
         )
         VALUES
-            (null,#{school_code},#{school_name},#{school_address},#{create_by},NOW(),null,null);
+            (null,getSchoolCode(),#{school_name},#{school_address},#{create_by},NOW(),null,null);
     </insert>
 
     <update id="updateSchoolById">
@@ -42,4 +42,15 @@
     <delete id="deleteSchoolById">
         delete from hg_school where school_id = #{school_id};
     </delete>
+
+    <!--此处用于查询成绩的相关信息-->
+    <select id="querySchoolInfoByTerms" resultType="School" parameterType="com.vickcle.model.School">
+        select * from hg_school where 1 = 1
+        <if test="school_code!=null and school_code!= 'empty'">
+            and school_code = #{school_code}
+        </if>
+        <if test="school_name!=null and school_name!= 'empty'">
+            and school_name = #{school_name}
+        </if>
+    </select>
 </mapper>

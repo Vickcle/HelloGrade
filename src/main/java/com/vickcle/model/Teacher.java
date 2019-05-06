@@ -19,6 +19,11 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(String teacher_code, String teacher_name) {
+        this.teacher_code = teacher_code;
+        this.teacher_name = teacher_name;
+    }
+
     public Teacher(String teacher_code, String teacher_name, String teacher_pwd, String teacher_tel, String teacher_email, String teacher_honor) {
         this.teacher_code = teacher_code;
         this.teacher_name = teacher_name;

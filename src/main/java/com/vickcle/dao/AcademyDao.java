@@ -10,4 +10,5 @@ public interface AcademyDao {
     public Academy findAcademyById(int academy_id);
     public void updateAcademyById(Academy academy);
     public void deleteAcademyById(int academy_id);
+    public List<Academy> queryAcademyInfoByTerms(Academy academy);
 }

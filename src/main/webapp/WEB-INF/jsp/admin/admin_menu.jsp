@@ -7,7 +7,7 @@
     <title>学生成绩管理及分析平台-管理员后台</title>
 </head>
 <meta charset="utf-8">
-<meta name="keywords" value ="firstpage,login">
+<meta name="keywords" value ="menu,addmin">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_main.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
