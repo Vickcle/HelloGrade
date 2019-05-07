@@ -28,9 +28,8 @@
                      action="${pageContext.request.contextPath }/update_lesson_database">
                 <sf:input path="lesson_id" type="hidden"/>
                 <div class="div-jan">开课学期:<sf:input path="lesson_duration"/></div>
-                <sf:errors path="lesson_duration" cssClass="error"></sf:errors><br>
                 <div class="div-jan">上课地点:<sf:input path="lesson_address"/></div>
-                <sf:errors path="lesson_address" cssClass="error"></sf:errors><br>
+                <br>
                 <input type="submit" value="修改" class="update btn btn-info">
             </sf:form>
         </table>

@@ -58,4 +58,14 @@ public class GradeServiceImpl implements GradeService{
     public List<GradeCreer> selectGradeForCreer(GradeCreer gradeCreer){
         return gradedao.selectGradeForCreer(gradeCreer);
     }
+
+    @Override
+    public List<GradeYear> queryGradeYear(GradeYear gradeYear){
+        return  gradedao.queryGradeYear(gradeYear);
+    }
+
+    @Override
+    public List<GradeObject> queryGradeYearDetails(GradeYear gradeYear){
+        return gradedao.queryGradeYearDetails(gradeYear);
+    }
 }

@@ -182,7 +182,7 @@
 
     //转到查看界面
     function EditViewById(id){
-        console.log("edit"+id);
+        window.location.href = "/admin_update_grade?grade_id="+id;
     }
     //进行删除操作
     function DeleteById(id) {
@@ -191,7 +191,7 @@
             title: "提示：",
             btn: parseInt("0011",2),
             onOk: function(){
-                console.log("delete"+id);
+                window.location.href = "/admin_delete_grade_database?grade_id="+id;
             }
         }
         window.wxc.xcConfirm(txt, "custom", option);

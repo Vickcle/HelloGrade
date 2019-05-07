@@ -67,10 +67,10 @@
 
     //预加载事件
     $(function(){
-       getGradeInfo();
+       getCompanyInfo();
     });
     //ajax请求数据：
-    function getGradeInfo(){
+    function getCompanyInfo(){
         var company_name =  $("input[id='company_name']").val();
         var company_type = $("input[id='company_type']").val();
         $.ajax({
@@ -158,7 +158,7 @@
     }
 
     $("#search_btn").click(function () {
-        getGradeInfo();
+        getCompanyInfo();
     });
 
     function actionFormatter(value, row, index) {

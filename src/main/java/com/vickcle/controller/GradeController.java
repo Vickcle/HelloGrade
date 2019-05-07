@@ -74,6 +74,17 @@ public class GradeController {
         model.addAttribute("page_total",page_total);
         return "admin/admin_query_grade";
     }
+
+
+    @RequestMapping("/admin_add_grade_db")
+    public String toAdminAddGradeDB(Grade grade){
+        if(grade!=null){
+            //这里需要校验是不是已经有啦，如果有则无法添加
+            gradeService.insertGrade(grade);
+        }
+        return "redirect:admin_query_grade";
+    }
+
     @RequestMapping("/admin_query_grade_term")
     @ResponseBody
     public String toAdminQueryGradeTerm(@Param("student_code") String student_code,@Param("student_name") String student_name,@Param("course_name") String course_name){
@@ -143,6 +154,7 @@ public class GradeController {
         return "redirect:teacher_query_grade_fields";
     }
 
+
     @RequestMapping("/teacher_query_grade_pages")
     public String toTeacherQueryGradePages(Model model,HttpSession session){
         int page_num = (int) session.getAttribute("page_num");
@@ -180,8 +192,19 @@ public class GradeController {
     @RequestMapping("/admin_update_grade")
     public String toAdminGradeUpdate(int grade_id,Model model){
         Grade grade = gradeService.findGradeById(grade_id);
+        GradeObject gradeObject = gradeService.selectGradeInfoByGradeId(grade_id);
         model.addAttribute("grade",grade);
+        model.addAttribute("gradeObject",gradeObject);
         return "admin/admin_update_grade";
+    }
+
+    @RequestMapping("/teacher_update_grade")
+    public String toTeacherGradeUpdate(int grade_id,Model model){
+        Grade grade = gradeService.findGradeById(grade_id);
+        GradeObject gradeObject = gradeService.selectGradeInfoByGradeId(grade_id);
+        model.addAttribute("grade",grade);
+        model.addAttribute("gradeObject",gradeObject);
+        return "teacher/teacher_update_grade";
     }
     //完成修改操作
     @RequestMapping("/update_grade_database")
@@ -190,6 +213,14 @@ public class GradeController {
         grade.setLast_update_by(user_id);
         gradeService.updateGradeById(grade);
         return "redirect:/admin_query_grade";
+    }
+
+    @RequestMapping("/teacher_update_grade_database")
+    public String toTeacherUpdateGradeDB(Grade grade,HttpSession session){
+        int user_id = (int)session.getAttribute("user_id");
+        grade.setLast_update_by(user_id);
+        gradeService.updateGradeById(grade);
+        return "redirect:/teacher_query_grade_fields";
     }
 
     @RequestMapping("/student_query_grade_fields")
@@ -220,6 +251,11 @@ public class GradeController {
         return "redirect:teacher_query_grade_fields";
     }
 
+    @RequestMapping("/admin_delete_grade_database")
+    public String toAdminDeleteGradeDB(@Param("grade_id") int grade_id){
+        gradeService.deleteGradeById(grade_id);
+        return "redirect:admin_query_grade";
+    }
     //转到excel导入界面
     @RequestMapping("/admin_import_grade")
     public String toAdminImportGrade(){
@@ -232,6 +268,35 @@ public class GradeController {
         int user_id = (int)session.getAttribute("user_id");
         dealGrade(person,user_id);
         return "redirect:/admin_query_grade";
+    }
+
+    //转向到学年成绩数据展示
+    @RequestMapping("/admin_query_grade_year")
+    public String toAdminGradeDB(){
+        return "admin/admin_query_grade_year";
+    }
+
+    @RequestMapping("/save_school_year_details")
+    @ResponseBody
+    public String toSaveSchoolYearDetails(@Param("student_code")String student_code,@Param("student_name") String student_name,@Param("class_name")String class_name,@Param("school_year") String school_year,HttpSession session){
+        Map<String,String> msg = new HashMap<>();
+        try {
+            class_name = ("".equals(class_name)) ? "empty" : class_name;
+            student_code = ("".equals(student_code)) ? "empty" : student_code;
+            student_name = ("".equals(student_name)) ? "empty" : student_name;
+            school_year = ("".equals(school_year)) ? "empty" : school_year + "%";
+            GradeYear gradeYear = new GradeYear(student_code, student_name, class_name, school_year);
+            session.setAttribute("gradeYear", gradeYear);
+            msg.put("data","success");
+            return JSON.toJSONString(msg);
+        }catch (Exception e){
+            msg.put("data","error");
+            return JSON.toJSONString(msg);
+        }
+    }
+    @RequestMapping("/admin_query_year_details")
+    public String toAdminQueryYearDetails(){
+        return "admin/admin_query_grade_year_details";
     }
 
     //学生导出成绩
@@ -269,6 +334,34 @@ public class GradeController {
         List<ClassGrade> list = gradeService.selectGradeInfoByClass(classGrade);
         //当size>当前页*记录数时
         System.out.println(list.toString());
+        msg.put("data",list);
+        return JSON.toJSONString(msg);
+    }
+
+    //查询学年成绩数据：
+    @RequestMapping("/get_school_year_grade")
+    @ResponseBody
+    public String toGetSchoolYearGrade(@Param("student_code")String student_code,@Param("student_name") String student_name,@Param("class_name")String class_name,@Param("school_year") String school_year){
+        Map<String,List<GradeYear>> msg = new HashMap<>();
+        class_name = ("".equals(class_name))?"empty":class_name;
+        student_code = ("".equals(student_code))?"empty":student_code;
+        student_name = ("".equals(student_name))?"empty":student_name;
+        school_year = ("".equals(school_year))?"empty":school_year;
+        List<GradeYear> list = new ArrayList<>();
+        GradeYear gradeYear = new GradeYear(student_code,student_name,class_name,school_year);
+        list = gradeService.queryGradeYear(gradeYear);
+        msg.put("data",list);
+        return JSON.toJSONString(msg);
+    }
+
+    //查询个人学年成绩数据：
+    @RequestMapping("/get_personal_year_grade")
+    @ResponseBody
+    public String toGetPersonalYearGrade(HttpSession session){
+        Map<String,List<GradeObject>> msg = new HashMap<>();
+        List<GradeObject> list = new ArrayList<>();
+        GradeYear gradeYear = (GradeYear) session.getAttribute("gradeYear");
+        list = gradeService.queryGradeYearDetails(gradeYear);
         msg.put("data",list);
         return JSON.toJSONString(msg);
     }

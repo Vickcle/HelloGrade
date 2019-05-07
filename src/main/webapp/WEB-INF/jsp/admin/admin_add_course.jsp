@@ -32,9 +32,25 @@
                 <sf:errors path="course_degree" cssClass="error"></sf:errors><br>
                 <div class="div-jan">课程学时:<sf:input path="course_time"/></div>
                 <sf:errors path="course_time" cssClass="error"></sf:errors><br>
-                <div class="div-jan">课程属性:<sf:input path="course_type"/></div>
+                <div class="div-jan">课程属性:
+                    <sf:select id="lesson_duration" class="select" style="margin-left:6px;width:178px;height:25px;" path="course_type">
+                        <sf:option  value="必修">必修</sf:option>
+                        <sf:option  value="选修">选修</sf:option>
+                    </sf:select>
+                </div>
                 <sf:errors path="course_type" cssClass="error"></sf:errors><br>
-                <div class="div-jan">课程性质:<sf:input path="course_property"/></div>
+                <div class="div-jan">课程性质:
+                    <sf:select id="lesson_duration" class="select" style="margin-left:6px;width:178px;height:25px;" path="course_property">
+                        <sf:option  value="通识教育平台课">通识教育平台课</sf:option>
+                        <sf:option  value="学科基础平台课">学科基础平台课</sf:option>
+                        <sf:option  value="体测">体测</sf:option>
+                        <sf:option  value="实践教学环节">实践教学环节</sf:option>
+                        <sf:option  value="专业核心课">专业核心课</sf:option>
+                        <sf:option  value="通识教育选修课">通识教育选修课</sf:option>
+                        <sf:option  value="专业任选课">专业任选课</sf:option>
+                        <sf:option  value="专业方向课">专业方向课</sf:option>
+                    </sf:select>
+                </div>
                 <sf:errors path="course_property" cssClass="error"></sf:errors><br>
                 <input type="submit" vlaue="增加" class="update btn btn-info">
             </sf:form>

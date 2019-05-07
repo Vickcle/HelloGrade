@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +27,12 @@ public class LessonController {
     ClassService classService;
     //跳转界面
     @RequestMapping("/admin_query_lesson")
-    public String toAdminQueryLesson(Model model , HttpServletResponse response){
-        List<Lesson> list = lessonService.findAllLesson();
-        model.addAttribute("list",list);
+    public String toAdminQueryLesson(){
         return "admin/admin_query_lesson";
     }
+    //获得实际课程信息
+
+
     @RequestMapping("/admin_add_lesson")
     public String toAdminLessonAdd(){
         return "admin/admin_add_lesson";

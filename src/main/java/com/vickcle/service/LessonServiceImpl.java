@@ -33,7 +33,7 @@ public class LessonServiceImpl implements LessonService{
     }
     @Override
     public void deleteLessonById(int lesson_id){
-        lessondao.findLessonById(lesson_id);
+        lessondao.deleteLessonById(lesson_id);
     }
     @Override
     public List<LessonObject> selectLessonInfo(LessonObject lessonObject){

@@ -91,7 +91,7 @@
                     <li><a href="${pageContext.request.contextPath}/admin_query_teacher"><i class="glyphicon glyphicon-user"></i>查询教师</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_teacher"><i class="glyphicon glyphicon-th-list"></i>增加教师</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_import_teacher"><i class="glyphicon glyphicon-edit"></i>读入文件</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin_export_teacher"><i class="glyphicon glyphicon-edit"></i>导出文件</a></li>
+                    <%--<li><a href="${pageContext.request.contextPath}/admin_export_teacher"><i class="glyphicon glyphicon-edit"></i>导出文件</a></li>--%>
                 </ul>
             </li>
 
@@ -109,6 +109,18 @@
             </li>
 
             <li>
+                <a href="#systemLesson" class="nav-header collapsed" data-toggle="collapse">
+                    <i class="glyphicon glyphicon-globe"></i>
+                    实际课程管理
+                    <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul id="systemLesson" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                    <li><a href="${pageContext.request.contextPath}/admin_query_lesson"><i class="glyphicon glyphicon-user"></i>查询开设课程</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin_add_lesson"><i class="glyphicon glyphicon-th-list"></i>开设新的课程</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <a href="#systemGrade" class="nav-header collapsed" data-toggle="collapse">
                     <i class="glyphicon glyphicon-calendar"></i>
                     成绩管理
@@ -116,9 +128,10 @@
                 </a>
                 <ul id="systemGrade" class="nav nav-list collapse secondmenu" style="height: 0px;">
                     <li><a href="${pageContext.request.contextPath}/admin_query_grade"><i class="glyphicon glyphicon-user"></i>查询成绩</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin_query_grade_year"><i class="glyphicon glyphicon-user"></i>学年成绩</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin_add_grade"><i class="glyphicon glyphicon-th-list"></i>增加成绩</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin_import_grade"><i class="glyphicon glyphicon-edit"></i>读入文件</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin_export_grade"><i class="glyphicon glyphicon-edit"></i>导出文件</a></li>
+                    <%--<li><a href="${pageContext.request.contextPath}/admin_import_grade"><i class="glyphicon glyphicon-edit"></i>读入文件</a></li>--%>
+                    <%--<li><a href="${pageContext.request.contextPath}/admin_export_grade"><i class="glyphicon glyphicon-edit"></i>导出文件</a></li>--%>
                 </ul>
             </li>
 

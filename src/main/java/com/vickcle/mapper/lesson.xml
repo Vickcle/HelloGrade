@@ -8,7 +8,7 @@
   	</select>
 
    <select id="findLessonById" resultType="Lesson">
-  		select * from hg_lesson where lesson_id = #{lesson_id} order by student_id;
+  		select * from hg_lesson where lesson_id = #{lesson_id} order by lesson_id;
   	</select>
 
 

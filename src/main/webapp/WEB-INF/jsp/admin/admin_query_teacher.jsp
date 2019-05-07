@@ -58,12 +58,12 @@
     //预加载事件
 
     $(function(){
-        getStudentInfo();
+        getTeacherInfo();
     });
 
 
 
-    function getStudentInfo(){
+    function getTeacherInfo(){
         var teacher_code =  $("input[id='search_teacher_code']").val();
         var teacher_name = $("input[id='search_teacher_name']").val();
         $.ajax({
@@ -135,7 +135,7 @@
     }
 
     $("#search_btn1").click(function () {
-        getStudentInfo();
+        getTeacherInfo();
     });
 
     function actionFormatter(value, row, index) {

@@ -335,7 +335,7 @@
         getStudentInfo();
     });
     $("#search_btn2").click(function () {
-        getCompanyInfo();
+        getLessonInfo();
     });
     // $("#search_btn3").click(function () {
     //     getSchoolInfo();

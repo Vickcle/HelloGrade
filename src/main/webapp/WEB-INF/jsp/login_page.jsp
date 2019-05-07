@@ -22,6 +22,9 @@
 				<div class="login-center-input">
 					<input id="username" type="text" name="" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'"/>
 					<div class="login-center-input-text">用户名</div>
+					<div id="myAlert1" class="alert alert-success" >
+						<strong>用户账号有误</strong>请重新输入！
+					</div>
 				</div>
 			</div>
 			<!--密码填写-->
@@ -30,6 +33,9 @@
 				<div class="login-center-input">
 					<input id="userpwd" type="text" name="" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'"/>
 					<div class="login-center-input-text">密码</div>
+					<div id="myAlert2" class="alert alert-success" >
+						<strong>密码有误</strong>请重新输入！
+					</div>
 				</div>
 			</div>
 			<!--单选框-->
@@ -58,7 +64,33 @@
 <script src="${pageContext.request.contextPath}\js\jquery.js" type="text/javascript" ></script>
 <script src="${pageContext.request.contextPath}\js\jquery.mousewheel.js" type="text/javascript" ></script>
 <script src="${pageContext.request.contextPath}\js\login_page.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}\js\check_input.js" type="text/javascript"></script>
 <script type="text/javascript" >
+	$("#myAlert1").hide();
+    $("#myAlert2").hide();
+//失去焦点事件：
 
+	// function checkIsTrueName(s) {
+	// 	var pattern = /^[0-9a-zA-Z]{4,10}$/;
+	// 	return pattern.test(s);
+	// }
+
+	$("#username").blur(function () {
+		var username = $("input[id='username']").val();
+        if(checkIsTrueName(username)){
+            $("#myAlert1").hide();
+		}else{
+            $("#myAlert1").show();
+        };
+    });
+
+    $("#userpwd").blur(function () {
+        var username = $("input[id='userpwd']").val();
+        if(checkIsTrueName(username)){
+            $("#myAlert2").hide();
+        }else{
+            $("#myAlert2").show();
+        };
+    });
 </script>
 </html>
